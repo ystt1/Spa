@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tbdd/Pages/Signup.dart';
 import 'package:tbdd/Widget/widget_support.dart';
 
 class LogInPage extends StatefulWidget {
@@ -101,7 +102,7 @@ class _LogInPageState extends State<LogInPage> {
                               'Đăng Nhập',
                               style: TextStyle(
                                   fontFamily: "Pacifico",
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   color: Colors.grey),
                             ),
                           ),
@@ -109,9 +110,15 @@ class _LogInPageState extends State<LogInPage> {
                             height: 40,
                           ),
                           Container(
-                            child: Text(
-                              "Chưa có tài khoản? Đăng kí",
-                              style: AppWidget.regularTextStyle(),
+                            
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                              },
+                              child: Text(
+                                "Chưa có tài khoản? Đăng kí",
+                                style: AppWidget.regularTextStyle(),
+                              ),
                             ),
                           )
                         ]),
