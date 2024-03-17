@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tbdd/Pages/Signup.dart';
 import 'package:tbdd/Widget/widget_support.dart';
+
+import '../auth.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -11,7 +14,27 @@ class LogInPage extends StatefulWidget {
   State<LogInPage> createState() => _LogInPageState();
 }
 
+
 class _LogInPageState extends State<LogInPage> {
+  String email='',password='';
+  TextEditingController emailController=new TextEditingController();
+  TextEditingController passwordController=new TextEditingController();
+
+  login () async {
+    email=emailController.text;
+    password=passwordController.text;
+    if(email!='')
+      {
+        try{
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('login success'),));
+          await Auth().signInWithEmailAndPassword(email, password);
+
+        }on FirebaseException catch(e){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code),));
+        }
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +93,7 @@ class _LogInPageState extends State<LogInPage> {
                               style: AppWidget.highlightTextStyle()),
                           SizedBox(height: 30),
                           TextField(
+                            controller: emailController,
                             decoration: InputDecoration(
                                 hintText: 'Email',
                                 hintStyle: AppWidget.regularTextStyle(),
@@ -77,6 +101,7 @@ class _LogInPageState extends State<LogInPage> {
                           ),
                           SizedBox(height: 20),
                           TextField(
+                            controller: passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
                                 hintText: 'Mật khẩu',
@@ -98,13 +123,16 @@ class _LogInPageState extends State<LogInPage> {
                             decoration: BoxDecoration(
                                 color: Color(0xff66FFCC),
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              'Đăng Nhập',
-                              style: TextStyle(
-                                  fontFamily: "Pacifico",
-                                  fontSize: 20,
-                                  color: Colors.grey),
-                            ),
+                              child: GestureDetector(
+                                onTap: login,
+                                child: Text(
+                                  'Đăng Nhập',
+                                  style: TextStyle(
+                                      fontFamily: "Pacifico",
+                                      fontSize: 20,
+                                      color: Colors.grey),
+                                ),
+                              ),
                           ),
                           SizedBox(
                             height: 40,

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">28686158915</string>
+    <string name="google_api_key" translatable="false">AIzaSyC_ABNrTT1cEcVYTdw__Ax3pe_wwk28gJI</string>
+    <string name="google_app_id" translatable="false">1:28686158915:android:8ee036f04ed308509458f6</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC_ABNrTT1cEcVYTdw__Ax3pe_wwk28gJI</string>
+    <string name="google_storage_bucket" translatable="false">spaapp-d3fee.appspot.com</string>
+    <string name="project_id" translatable="false">spaapp-d3fee</string>
+</resources>

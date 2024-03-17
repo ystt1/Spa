@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "401249419569",
+    "project_id": "tbdd-9d1fd",
+    "storage_bucket": "tbdd-9d1fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401249419569:android:81ba6edb59e2abb0a93010",
+        "android_client_info": {
+          "package_name": "com.example.tbdd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfCDx-39ayurfA1wRbNxbFe-5OrWCAR2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
