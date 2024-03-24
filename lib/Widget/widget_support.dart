@@ -11,6 +11,15 @@ class AppWidget{
     );
   }
 
+  static TextStyle normalTextStyle() {
+    return const TextStyle(
+        color: Colors.black,
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Pacifico'
+    );
+  }
+
   static TextStyle highlightTextStyle() {
     return const TextStyle(
         color: Colors.black,

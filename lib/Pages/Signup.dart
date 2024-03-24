@@ -12,26 +12,32 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String email='',password='',rePassword='';
+  String email = '', password = '', rePassword = '';
 
-  TextEditingController emailController=new TextEditingController();
-  TextEditingController passwordController=new TextEditingController();
-  TextEditingController rePasswordController=new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController rePasswordController = new TextEditingController();
 
-  registration()async{
-    email=emailController.text;
-    password=passwordController.text;
-    rePassword=rePasswordController.text;
-    if(password!='' && rePassword==password)
-      {
-        try{
-          await Auth().registerWithEmailAndPassword(email, password);
-        }on FirebaseException catch(e){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code),));
-        }
+  registration() async {
+    email = emailController.text;
+    password = passwordController.text;
+    rePassword = rePasswordController.text;
+    if (password != '' && rePassword == password) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator());
+          });
+      try {
+        await Auth().registerWithEmailAndPassword(email, password);
+      } on FirebaseException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.code),
+        ));
       }
+      Navigator.of(context).pop();
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +82,6 @@ class _SignUpState extends State<SignUp> {
                       height: 25,
                     ),
                     Form(
-
                       child: Material(
                         borderRadius: BorderRadius.circular(20),
                         elevation: 5.0,
@@ -140,7 +145,12 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Container(
                               child: GestureDetector(
-                                onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));},
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LogInPage()));
+                                },
                                 child: Text(
                                   "Đã có tài khoản? Đăng nhập",
                                   style: AppWidget.regularTextStyle(),
@@ -162,7 +172,6 @@ class _SignUpState extends State<SignUp> {
                           Image.asset('images/youtube.png.png'),
                         ],
                       ),
-
                     )
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tbdd/Pages/Home.dart';
 import 'package:tbdd/Pages/Signup.dart';
 import 'package:tbdd/Widget/widget_support.dart';
 
@@ -16,23 +17,30 @@ class LogInPage extends StatefulWidget {
 
 
 class _LogInPageState extends State<LogInPage> {
-  String email='',password='';
-  TextEditingController emailController=new TextEditingController();
-  TextEditingController passwordController=new TextEditingController();
+  String email = '',
+      password = '';
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
 
-  login () async {
-    email=emailController.text;
-    password=passwordController.text;
-    if(email!='')
-      {
-        try{
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('login success'),));
-          await Auth().signInWithEmailAndPassword(email, password);
-
-        }on FirebaseException catch(e){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code),));
-        }
+  login() async {
+    email = emailController.text;
+    password = passwordController.text;
+    if (email != '') {
+      showDialog(
+          context: context, builder: (context) {
+        return Center(child:
+        CircularProgressIndicator());
+      });
+      try {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('login success'),));
+        await Auth().signInWithEmailAndPassword(email, password);
+      } on FirebaseException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.code),));
       }
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -42,8 +50,14 @@ class _LogInPageState extends State<LogInPage> {
         child: Stack(
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height / 1,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -52,9 +66,18 @@ class _LogInPageState extends State<LogInPage> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 2.5),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+                  top: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 2.5),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -69,7 +92,10 @@ class _LogInPageState extends State<LogInPage> {
                 child: Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 2.7,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 2.7,
                       child: Center(
                         child: Image.asset('images/pngwing.com.png'),
                       ),
@@ -86,8 +112,14 @@ class _LogInPageState extends State<LogInPage> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20)),
-                        width: MediaQuery.of(context).size.width / 1.2,
-                        height: MediaQuery.of(context).size.height / 2.1,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 1.2,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height / 2.1,
                         child: Column(children: [
                           Text('Đăng nhập',
                               style: AppWidget.highlightTextStyle()),
@@ -123,25 +155,26 @@ class _LogInPageState extends State<LogInPage> {
                             decoration: BoxDecoration(
                                 color: Color(0xff66FFCC),
                                 borderRadius: BorderRadius.circular(10)),
-                              child: GestureDetector(
-                                onTap: login,
-                                child: Text(
-                                  'Đăng Nhập',
-                                  style: TextStyle(
-                                      fontFamily: "Pacifico",
-                                      fontSize: 20,
-                                      color: Colors.grey),
-                                ),
+                            child: GestureDetector(
+                              onTap: login,
+                              child: Text(
+                                'Đăng Nhập',
+                                style: TextStyle(
+                                    fontFamily: "Pacifico",
+                                    fontSize: 20,
+                                    color: Colors.grey),
                               ),
+                            ),
                           ),
                           SizedBox(
                             height: 40,
                           ),
                           Container(
-                            
+
                             child: GestureDetector(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => SignUp()));
                               },
                               child: Text(
                                 "Chưa có tài khoản? Đăng kí",
@@ -155,14 +188,14 @@ class _LogInPageState extends State<LogInPage> {
                     SizedBox(height: 50),
                     Container(
                       height: 60,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('images/insta.png.png'),
-                            Image.asset('images/fb.png'),
-                            Image.asset('images/youtube.png.png'),
-                          ],
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('images/insta.png.png'),
+                          Image.asset('images/fb.png'),
+                          Image.asset('images/youtube.png.png'),
+                        ],
+                      ),
 
                     )
                   ],
