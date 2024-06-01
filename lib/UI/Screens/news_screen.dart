@@ -12,7 +12,6 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   Widget AllTab() {
     return GestureDetector(
-
       child: Container(
           padding: const EdgeInsets.all(16),
           width: double.infinity,
