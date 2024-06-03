@@ -21,14 +21,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-Widget RowTitile(String txt1, String txt2){
+Widget RowTitile(String txt1, String txt2) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
         txt1,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: color.colorWord),
+        style: TextStyle(fontWeight: FontWeight.bold, color: color.colorWord),
       ),
       Text(
         txt2,
@@ -37,7 +36,6 @@ Widget RowTitile(String txt1, String txt2){
     ],
   );
 }
-
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -64,7 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(fontWeight: FontWeight.bold))
                   ]),
             ),
-            const Icon(CupertinoIcons.gift,size: 35,color: Colors.white,)
+            const Icon(
+              CupertinoIcons.gift,
+              size: 35,
+              color: Colors.white,
+            )
           ]),
         ),
         body: Padding(
@@ -95,7 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ]),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 RowTitile("Dịch vụ nổi bật", "Xem tất cả >"),
                 const SizedBox(
                   height: 15,
@@ -109,12 +113,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ...services
-                              .map((ser) => FeaturedServices( ser: ser,))
+                              .map((ser) => FeaturedServices(
+                                    ser: ser,
+                                  ))
                               .toList()
                         ]);
                   }),
                 ),
-                SizedBox(height: 25,),
+                SizedBox(
+                  height: 25,
+                ),
                 RowTitile("Các chi nhánh", "(6 chi nhánh)"),
                 const SizedBox(
                   height: 15,
@@ -127,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           scrollDirection: Axis.horizontal,
                           children: [
                             ...state.brachList
-                                .map((branch) => BranchCard( branch:branch))
+                                .map((branch) => BranchCard(branch: branch))
                                 .toList(),
                           ],
                         );
@@ -144,9 +152,25 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(onPressed:() {},child: Icon(Icons.message,color: Colors.white,),shape: CircleBorder(),backgroundColor: color.colorPrimary,),
-            SizedBox(height: 7,),
-            FloatingActionButton(onPressed:() {},child: Icon(Icons.phone,color: Colors.white),shape: CircleBorder(),backgroundColor: color.colorPrimary,),
+            FloatingActionButton(
+              onPressed: () {},
+              child: Icon(
+                Icons.message,
+                color: Colors.white,
+              ),
+              shape: CircleBorder(),
+              backgroundColor: color.colorPrimary,
+              heroTag: 'message',
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.phone, color: Colors.white),
+                shape: CircleBorder(),
+                backgroundColor: color.colorPrimary,
+                heroTag: 'phone'),
           ],
         ),
       ),

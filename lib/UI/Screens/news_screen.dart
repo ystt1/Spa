@@ -60,45 +60,44 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            const TabBar(tabs: [
-              Tab(
-                text: "Tất cả",
-              ),
-              Tab(
-                text: "Nổi bật",
-              ),
-              Tab(
-                text: "Yêu thich",
-              ),
-            ]),
-            Expanded(
-              child: TabBarView(children: [
-                ListView(
-                  children: [
-                    AllTab(),
-                    AllTab(),
-                    AllTab(),
-                    AllTab(),
-                    AllTab(),
-                  ],
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: Column(
+            children: [
+              const TabBar(tabs: [
+                Tab(
+                  text: "Tất cả",
                 ),
-                Container(
-                  child: const Text("Nổi bật tab"),
+                Tab(
+                  text: "Nổi bật",
                 ),
-                Container(
-                  child: const Text("Yêu thích tab"),
+                Tab(
+                  text: "Yêu thich",
                 ),
               ]),
-            )
-          ],
+              Expanded(
+                child: TabBarView(children: [
+                  ListView(
+                    children: [
+                      AllTab(),
+                      AllTab(),
+                      AllTab(),
+                      AllTab(),
+                      AllTab(),
+                    ],
+                  ),
+                  Container(
+                    child: const Text("Nổi bật tab"),
+                  ),
+                  Container(
+                    child: const Text("Yêu thích tab"),
+                  ),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
