@@ -21,7 +21,6 @@ final GoRouter _router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
-      
       path: "/",
       builder: (context, state) => const LoginScreen(),
     ),
