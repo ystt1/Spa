@@ -10,7 +10,7 @@ List<Service> services = [
     id: 1,
     name: 'Facial Treatment',
     duration: '60 minutes',
-    details: 'A facial treatment that includes cleansing, exfoliation, and a hydrating mask.',
+    details: 'A facial \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntreatment that inclaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n\n\n\n\naaaa\naaaaaaaa\naaaaa\naaaaa\naaa\nudes cleansing, exfoliation, and a hydrating mask.',
     imageUrl: 'https://oakwell.com/wp-content/uploads/2023/12/spa-treatments-facial.jpg',
   ),
   Service(

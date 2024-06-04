@@ -40,14 +40,8 @@ Widget RowTitile(String txt1, String txt2) {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BranchesBloc>(
-            create: (BuildContext context) => BranchesBloc()),
-        BlocProvider<ServicesBloc>(
-            create: (BuildContext context) => ServicesBloc())
-      ],
-      child: Scaffold(
+    return
+      Scaffold(
         appBar: AppBar(
           backgroundColor: color.colorPrimary,
           title:
@@ -134,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            ...state.brachList
+                            ...state.branchList
                                 .map((branch) => BranchCard(branch: branch))
                                 .toList(),
                           ],
@@ -173,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 heroTag: 'phone'),
           ],
         ),
-      ),
+
     );
   }
 }

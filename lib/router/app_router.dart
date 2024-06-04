@@ -1,5 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tbdd/Models/Branch.dart';
+import 'package:tbdd/Models/Service.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/branch_details.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/service_details.dart';
 import 'package:tbdd/UI/Screens/login_screen.dart';
 import 'package:tbdd/UI/Screens/booking_screen.dart';
 import 'package:tbdd/UI/Screens/home_screen.dart';
@@ -7,6 +12,7 @@ import 'package:tbdd/UI/Screens/main_screen.dart';
 import 'package:tbdd/UI/Screens/news_screen.dart';
 import 'package:tbdd/UI/Screens/product_screen.dart';
 import 'package:tbdd/UI/Screens/profile_screen.dart';
+
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHome = GlobalKey<NavigatorState>(debugLabel: 'Home');
@@ -35,10 +41,31 @@ final GoRouter _router = GoRouter(
           navigatorKey: _shellNavigatorHome,
           routes: <RouteBase>[
             GoRoute(
-              path: "/home",
-              name: "home",
-              builder: (context, state) => const HomeScreen(),
-            ),
+                path: "/home",
+                name: "home",
+                builder: (context, state) => const HomeScreen(),
+                routes: [
+                  GoRoute(
+                      path: "service-details",
+                      name: "serviceDetail",
+                      builder: (context, state) {
+                        Map<String, Service> extraMap =
+                            state.extra as Map<String, Service>;
+                        Service? service = extraMap['service'];
+                        // Service service=state.extra as Service;
+                        return ServiceDetails(service: service);
+                      }),
+                  GoRoute(
+                      path: "branch-details",
+                      name: "branchDetails",
+                      builder: (context, state) {
+                        Map<String, Branch> extraMap =
+                        state.extra as Map<String, Branch>;
+                        Branch? branch=extraMap['branch'] ;
+                        return BranchDetails(brancha: branch);
+                      })
+                ]),
+
           ],
         ),
         StatefulShellBranch(
