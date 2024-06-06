@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tbdd/UI/Widgets/separate_line.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_bloc.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_event.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_state.dart';
@@ -75,12 +76,8 @@ class _BranchDetailsState extends State<BranchDetails> {
             ],
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 0.5,
-          decoration: const BoxDecoration(color: Colors.black26),
-        )
-      ],
+        SeparateLine(width: MediaQuery.of(context).size.width)
+    ]
     );
   }
 

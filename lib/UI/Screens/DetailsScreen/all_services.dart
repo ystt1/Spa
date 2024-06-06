@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tbdd/Models/CategoryService.dart';
 import 'package:tbdd/Models/Service.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_bloc.dart';
@@ -20,8 +21,12 @@ class _AllServiceState extends State<AllService> {
   @override
   void initState() {
     _isOpen = List<bool>.generate(
-        BlocProvider.of<ServicesBloc>(context).state.ListCateService.length,
-        (index) => false);
+        BlocProvider
+            .of<ServicesBloc>(context)
+            .state
+            .ListCateService
+            .length,
+            (index) => false);
     super.initState();
   }
 
@@ -31,7 +36,10 @@ class _AllServiceState extends State<AllService> {
   Widget ExpandedItemBody(Service service) {
     return Container(
       padding: EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -49,43 +57,67 @@ class _AllServiceState extends State<AllService> {
           Column(
             children: [
               Container(
-                  width: MediaQuery.of(context).size.width - 180,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width - 180,
                   child: Text(
                     service.name,
                     style: TextStyle(fontSize: 20, color: color.colorWord),
                     softWrap: true,
                   )),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Container(
-                  width: MediaQuery.of(context).size.width - 180,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width - 180,
                   child: Text(service.detail,
                       maxLines: 1, overflow: TextOverflow.ellipsis)),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Container(
-                width: MediaQuery.of(context).size.width - 180,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width - 180,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(CupertinoIcons.time,size: 16,),
+                        Icon(
+                          CupertinoIcons.time,
+                          size: 16,
+                        ),
                         Text(" ${service.duration}"),
                       ],
                     ),
-                    Text("${service.price} đ",style: TextStyle(color: Colors.green),)
+                    Text(
+                      "${service.price} đ",
+                      style: TextStyle(color: Colors.green),
+                    )
                   ],
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.55,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.55,
                 height: 0.5,
                 decoration: const BoxDecoration(color: Colors.black26),
               ),
             ],
-
           ),
-          Text(">")
+          GestureDetector(child: Text(">"),
+            onTap:() {
+              context.pushNamed("serviceDetail",extra:{"service":service});
+            },)
         ],
       ),
     );
@@ -118,20 +150,22 @@ class _AllServiceState extends State<AllService> {
         ));
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color.colorPrimary,
         titleSpacing: 0,
-        title: Text("Category Service",style: TextStyle(color: CupertinoColors.white),),
+        title: Text(
+          "Category Service",
+          style: TextStyle(color: CupertinoColors.white),
+        ),
         iconTheme: IconThemeData(color: CupertinoColors.white),
       ),
       body: Column(
         children: [
-          Card( elevation:3,
+          Card(
+            elevation: 3,
             child: Container(
               height: 60,
               color: CupertinoColors.white,
@@ -144,37 +178,42 @@ class _AllServiceState extends State<AllService> {
                   decoration: InputDecoration(
                     hintText: 'Search ...',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(2)
+                        borderRadius: BorderRadius.circular(2)),
+                    prefixIcon: Icon(
+                      CupertinoIcons.search,
+                      size: 18,
                     ),
-                    prefixIcon: Icon(CupertinoIcons.search,size: 18,),
                   ),
-                  onChanged:(e) {
-                    context.read<ServicesBloc>().add(ServiceSeachEvent(name: e));
+                  onChanged: (e) {
+                    context
+                        .read<ServicesBloc>()
+                        .add(ServiceSeachEvent(name: e));
                   },
                 ),
               ),
             ),
-          )
-          ,
+          ),
           Expanded(
             child: SingleChildScrollView(
               child: BlocBuilder<ServicesBloc, ServicesState>(
                   builder: (BuildContext context, ServicesState state) {
-                return ExpansionPanelList(
-                    elevation: 1,
-                    dividerColor: Colors.blueGrey,
-                    children: [
-                      ...state.ListCateService.asMap()
-                          .entries
-                          .map((e) => ExpandedItem(e.key, e.value))
-                          .toList(),
-                    ],
-                    expansionCallback: (i, isOpen) => {
+                    return ExpansionPanelList(
+                        elevation: 1,
+                        dividerColor: Colors.blueGrey,
+                        children: [
+                          ...state.ListCateService
+                              .asMap()
+                              .entries
+                              .map((e) => ExpandedItem(e.key, e.value))
+                              .toList(),
+                        ],
+                        expansionCallback: (i, isOpen) =>
+                        {
                           setState(() {
                             _isOpen[i] = isOpen;
                           })
                         });
-              }),
+                  }),
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tbdd/UI/Widgets/separate_line.dart';
 import 'package:tbdd/until/function.dart';
 
 import '../../Models/News.dart';
@@ -47,13 +48,7 @@ class ItemTabView extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: 0.5,
-                  decoration: const BoxDecoration(color: Colors.black26),
-                ),
-              )
+              SeparateLine(width: MediaQuery.of(context).size.width*0.9)
             ],
           )),
     );

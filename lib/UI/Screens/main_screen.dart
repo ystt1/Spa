@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
+import 'package:tbdd/blocs/ProductsBLoC/products_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/until/color.dart';
 
@@ -37,6 +38,8 @@ class _MainScreenState extends State<MainScreen> {
             create: (BuildContext context) => ServicesBloc()),
         BlocProvider<NewsBloc>(
             create: (BuildContext context) => NewsBloc()),
+        BlocProvider<ProductBloc>(
+            create: (BuildContext context) => ProductBloc()),
       ],
       child: Scaffold(
         body: SizedBox(

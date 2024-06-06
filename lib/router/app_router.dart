@@ -1,12 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tbdd/Models/Branch.dart';
 import 'package:tbdd/Models/News.dart';
+import 'package:tbdd/Models/Product.dart';
 import 'package:tbdd/Models/Service.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/all_services.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/branch_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/news_details.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/product_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/service_details.dart';
 import 'package:tbdd/UI/Screens/login_screen.dart';
 import 'package:tbdd/UI/Screens/booking_screen.dart';
@@ -15,7 +16,6 @@ import 'package:tbdd/UI/Screens/main_screen.dart';
 import 'package:tbdd/UI/Screens/news_screen.dart';
 import 'package:tbdd/UI/Screens/product_screen.dart';
 import 'package:tbdd/UI/Screens/profile_screen.dart';
-
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHome = GlobalKey<NavigatorState>(debugLabel: 'Home');
@@ -63,38 +63,38 @@ final GoRouter _router = GoRouter(
                       name: "branchDetails",
                       builder: (context, state) {
                         Map<String, Branch> extraMap =
-                        state.extra as Map<String, Branch>;
-                        Branch? branch=extraMap['branch'] ;
+                            state.extra as Map<String, Branch>;
+                        Branch? branch = extraMap['branch'];
                         return BranchDetails(brancha: branch);
                       }),
                   GoRoute(
                       path: "all-service",
                       name: "allService",
                       builder: (context, state) {
-                       return const AllService();
+                        return const AllService();
                       })
                 ]),
-
           ],
         ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorNews,
           routes: <RouteBase>[
             GoRoute(
-              path: "/news",
-              name: "news",
-              builder: (context, state) => const NewsScreen(),
-              routes: [  GoRoute(
-                  path: "news-details",
-                  name: "newsDetails",
-                  builder: (context, state) {
-                    Map<String, News> extraMap =
-                    state.extra as Map<String, News>;
-                    News? news = extraMap['news'];
-                    // Service service=state.extra as Service;
-                    return NewsDetails(news: news);
-                  }),]
-            ),
+                path: "/news",
+                name: "news",
+                builder: (context, state) => const NewsScreen(),
+                routes: [
+                  GoRoute(
+                      path: "news-details",
+                      name: "newsDetails",
+                      builder: (context, state) {
+                        Map<String, News> extraMap =
+                            state.extra as Map<String, News>;
+                        News? news = extraMap['news'];
+                        // Service service=state.extra as Service;
+                        return NewsDetails(news: news);
+                      }),
+                ]),
           ],
         ),
         StatefulShellBranch(
@@ -111,10 +111,20 @@ final GoRouter _router = GoRouter(
           navigatorKey: _shellNavigatorProduct,
           routes: <RouteBase>[
             GoRoute(
-              path: "/product",
-              name: "product",
-              builder: (context, state) => const ProductScreen(),
-            ),
+                path: "/product",
+                name: "product",
+                builder: (context, state) => const ProductScreen(),
+                routes: [
+                  GoRoute(
+                      path: "details",
+                      name: "productDetails",
+                      builder: (context, state)  {
+                        Map<String, Product> extraMap =
+                        state.extra as Map<String, Product>;
+                        Product? product = extraMap['product'];
+                        // Service service=state.extra as Service;
+                        return ProductDetails(product: product);})
+                ]),
           ],
         ),
         StatefulShellBranch(
