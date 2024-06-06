@@ -113,12 +113,10 @@ class _BranchDetailsState extends State<BranchDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: CupertinoColors.white),
         backgroundColor: color.colorPrimary,
-        title: Text(
-          "Các chi nhánh",
-          style: TextStyle(color: CupertinoColors.white, fontSize: 20),
-        ),
+        titleSpacing: 0,
+        title: Text("Branch Detail",style: TextStyle(color: CupertinoColors.white),),
+        iconTheme: IconThemeData(color: CupertinoColors.white),
       ),
       body: SingleChildScrollView(
         child: Column(

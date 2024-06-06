@@ -21,12 +21,14 @@ class _ServiceDetailsState extends State<ServiceDetails> {
     super.initState();
     ser = widget.service ??
         Service(
-          id: 404,
+          id: '0-0',
+          imgUrl: 'https://oakwell.com/wp-content/uploads/2023/12/waxing1.jpg',
           name: 'ERROR',
-          duration: '00 minutes',
-          details: 'ERROR',
-          imageUrl:
-              'https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg',
+          duration: 'ERROR',
+          detail: 'ERROR',
+          isHighlight: false,
+          price: 20.0,
+          categoryId: '0',
         );
     // TODO: implement initState
   }
@@ -37,10 +39,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
       backgroundColor: CupertinoColors.extraLightBackgroundGray,
       appBar: AppBar(
         backgroundColor: color.colorPrimary,
-        title: Text(
-          "Chi tiết dịch vụ",
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
+        titleSpacing: 0,
+        title: Text("Service Detail",style: TextStyle(color: CupertinoColors.white),),
+        iconTheme: IconThemeData(color: CupertinoColors.white),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +54,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
               padding: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  Image(image: NetworkImage(ser.imageUrl)),
+                  Image(image: NetworkImage(ser.imgUrl)),
                   SizedBox(
                     height: 10,
                   ),
@@ -73,7 +74,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(ser.details)
+                  Container(
+                    alignment: Alignment.topLeft,
+                      child: Text(ser.detail))
                 ],
               ),
             ),

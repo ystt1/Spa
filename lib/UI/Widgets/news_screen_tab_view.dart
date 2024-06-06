@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tbdd/until/function.dart';
 
 import '../../Models/News.dart';
 
 class ItemTabView extends StatelessWidget {
   final News news;
-  const ItemTabView({super.key,required this.news});
+
+  const ItemTabView({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        context.pushNamed("newsDetails", extra: {"news": news});
+      },
       child: Container(
           padding: const EdgeInsets.all(16),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(
-                  image: NetworkImage(
-                      news.imageUrl)),
+              Image(image: NetworkImage(news.imageUrl)),
               const SizedBox(
                 height: 10,
               ),
@@ -32,7 +35,7 @@ class ItemTabView extends StatelessWidget {
                   children: [
                     Icon(Icons.access_time, size: 15),
                     Text(
-                    timeAgo(news.postedTime),
+                      timeAgo(news.postedTime),
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 13,

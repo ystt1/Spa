@@ -1,15 +1,36 @@
 class Service {
-  final int id;
+  final String id;
+  final String imgUrl;
   final String name;
   final String duration;
-  final String details;
-  final String imageUrl;
+  final String detail;
+  final bool isHighlight;
+  final double price;
+  final String categoryId;
 
   Service({
     required this.id,
+    required this.imgUrl,
     required this.name,
     required this.duration,
-    required this.details,
-    required this.imageUrl,
+    required this.detail,
+    required this.isHighlight,
+    required this.price,
+    required this.categoryId,
   });
+
+  factory Service.fromJson(Map<String, dynamic> json) {
+    return Service(
+      id: json['id'],
+      imgUrl: json['imgUrl'],
+      name: json['name'],
+      duration: json['duration'],
+      detail: json['detail'],
+      isHighlight: json['isHighlight'],
+      price: json['price'],
+      categoryId: json['categoryId'],
+    );
+  }
+
+
 }

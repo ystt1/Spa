@@ -46,6 +46,7 @@ dependencies:
   go_router: ^14.1.4
   sliding_clipped_nav_bar: ^3.1.1
   font_awesome_flutter: ^10.7.0
+  dart_extensions: ^2.2.4
 
 
 dev_dependencies:

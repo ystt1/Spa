@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tbdd/Models/Branch.dart';
+import 'package:tbdd/Models/News.dart';
 import 'package:tbdd/Models/Service.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/all_services.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/branch_details.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/news_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/service_details.dart';
 import 'package:tbdd/UI/Screens/login_screen.dart';
 import 'package:tbdd/UI/Screens/booking_screen.dart';
@@ -63,6 +66,12 @@ final GoRouter _router = GoRouter(
                         state.extra as Map<String, Branch>;
                         Branch? branch=extraMap['branch'] ;
                         return BranchDetails(brancha: branch);
+                      }),
+                  GoRoute(
+                      path: "all-service",
+                      name: "allService",
+                      builder: (context, state) {
+                       return const AllService();
                       })
                 ]),
 
@@ -75,6 +84,16 @@ final GoRouter _router = GoRouter(
               path: "/news",
               name: "news",
               builder: (context, state) => const NewsScreen(),
+              routes: [  GoRoute(
+                  path: "news-details",
+                  name: "newsDetails",
+                  builder: (context, state) {
+                    Map<String, News> extraMap =
+                    state.extra as Map<String, News>;
+                    News? news = extraMap['news'];
+                    // Service service=state.extra as Service;
+                    return NewsDetails(news: news);
+                  }),]
             ),
           ],
         ),

@@ -16,44 +16,45 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NewsBloc>(
-      create: (BuildContext context) => NewsBloc(),
-      child: SafeArea(
-        child: DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            body: Column(
-              children: [
-                const TabBar(tabs: [
-                  Tab(
-                    text: "Tất cả",
-                  ),
-                  Tab(
-                    text: "Nổi bật",
-                  ),
-                  Tab(
-                    text: "Yêu thich",
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: Column(
+            children: [
+              const TabBar(tabs: [
+                Tab(
+                  text: "Tất cả",
+                ),
+                Tab(
+                  text: "Nổi bật",
+                ),
+                Tab(
+                  text: "Yêu thich",
+                ),
+              ]),
+              Expanded(
+                child: TabBarView(children: [
+                  BlocBuilder<NewsBloc, NewsState>(
+                      builder: (BuildContext context, state) {
+                    return ListView(children: [
+                      ...state.listAllNews
+                          .map((news) => ItemTabView(news: news))
+                    ]);
+                  }),
+                  BlocBuilder<NewsBloc, NewsState>(
+                      builder: (BuildContext context, state) {
+                    return ListView(children: [
+                      ...state.listHighlighNews
+                          .map((news) => ItemTabView(news: news))
+                    ]);
+                  }),
+                  Container(
+                    child: const Text("Yêu thích tab"),
                   ),
                 ]),
-                Expanded(
-                  child: TabBarView(children: [
-                    BlocBuilder<NewsBloc,NewsState>(builder: (BuildContext context, state) {
-                      return ListView(children: [
-                        ...state.listAllNews.map((news) => ItemTabView(news: news))
-                      ]);
-                    }),
-                    BlocBuilder<NewsBloc,NewsState>(builder: (BuildContext context, state) {
-                      return ListView(children: [
-                        ...state.listHighlighNews.map((news) => ItemTabView(news: news))
-                      ]);
-                    }),
-                    Container(
-                      child: const Text("Yêu thích tab"),
-                    ),
-                  ]),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
