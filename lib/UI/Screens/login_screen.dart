@@ -86,6 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        context.pushNamed("signup");
+                      },
                       child: Text("Tạo tài khoản"),
                     ),
                     SizedBox(width: 50),

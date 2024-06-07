@@ -47,6 +47,8 @@ dependencies:
   sliding_clipped_nav_bar: ^3.1.1
   font_awesome_flutter: ^10.7.0
   dart_extensions: ^2.2.4
+  firebase_storage: ^11.7.7
+  cloud_firestore: ^4.17.5
 
 
 dev_dependencies:

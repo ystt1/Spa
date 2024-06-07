@@ -9,6 +9,7 @@ import 'package:tbdd/UI/Screens/DetailsScreen/branch_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/news_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/product_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/service_details.dart';
+import 'package:tbdd/UI/Screens/Signup.dart';
 import 'package:tbdd/UI/Screens/login_screen.dart';
 import 'package:tbdd/UI/Screens/booking_screen.dart';
 import 'package:tbdd/UI/Screens/home_screen.dart';
@@ -31,7 +32,13 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
       path: "/",
+      name: "login",
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: "/signup",
+      name: "signup",
+      builder: (context, state) => const SignUpScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -118,12 +125,13 @@ final GoRouter _router = GoRouter(
                   GoRoute(
                       path: "details",
                       name: "productDetails",
-                      builder: (context, state)  {
+                      builder: (context, state) {
                         Map<String, Product> extraMap =
-                        state.extra as Map<String, Product>;
+                            state.extra as Map<String, Product>;
                         Product? product = extraMap['product'];
                         // Service service=state.extra as Service;
-                        return ProductDetails(product: product);})
+                        return ProductDetails(product: product);
+                      })
                 ]),
           ],
         ),
