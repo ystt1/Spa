@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
+import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_bloc.dart';
 import 'package:tbdd/blocs/ProductsBLoC/products_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
+import 'package:tbdd/blocs/newsBLoC/news_event.dart';
 import 'package:tbdd/until/color.dart';
 
+import '../../blocs/HomeScreenBLoC/home_screen_event.dart';
 import '../../blocs/ServicesBLoC/services_bloc.dart';
 import '../../blocs/brachesBLoC/branches_bloc.dart';
 
@@ -20,6 +23,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+
 
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
@@ -40,6 +44,8 @@ class _MainScreenState extends State<MainScreen> {
             create: (BuildContext context) => NewsBloc()),
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
+        BlocProvider<HomeBloc>(
+            create: (BuildContext context) => HomeBloc()),
       ],
       child: Scaffold(
         body: SizedBox(

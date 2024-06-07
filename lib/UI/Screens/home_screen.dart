@@ -6,6 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tbdd/Models/Service.dart';
 import 'package:tbdd/UI/Widgets/home_screen_branch_card.dart';
+import 'package:tbdd/UI/Widgets/refresh_widget.dart';
+import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_bloc.dart';
+import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_event.dart';
+import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_state.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_bloc.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_event.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_state.dart';
@@ -23,16 +27,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<ServicesBloc>().add(ServiceLoadEvent());
+    context.read<HomeBloc>().add(HomeEventLoad());
   }
 
-  Widget RowTitile(String txt1, String txt2,Function() function) {
+  Widget RowTitile(String txt1, String txt2, Function() function) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -53,134 +55,140 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-        appBar: AppBar(
-          backgroundColor: color.colorPrimary,
-          title:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            RichText(
-              text: const TextSpan(
-                  style: TextStyle(color: Colors.white),
-                  children: <TextSpan>[
-                    TextSpan(text: "Xin Chào "),
-                    TextSpan(
-                        text: "Phan Quốc Tuấn",
-                        style: TextStyle(fontWeight: FontWeight.bold))
-                  ]),
-            ),
-            const Icon(
-              CupertinoIcons.gift,
-              size: 35,
-              color: Colors.white,
-            )
-          ]),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 3.4,
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: const Image(
-                            image: NetworkImage(
-                                "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: const Image(
-                            image: NetworkImage(
-                                "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
-                      ),
-                    ),
-                  ]),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                RowTitile("Dịch vụ nổi bật", "Xem tất cả >",(){context.pushNamed("allService");}),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  child: BlocBuilder<ServicesBloc, ServicesState>(
-                      builder: (BuildContext context, state) {
-                    List<Service> services = state.listHighlishService.take(3).toList();
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: color.colorPrimary,
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          RichText(
+            text: const TextSpan(
+                style: TextStyle(color: Colors.white),
+                children: <TextSpan>[
+                  TextSpan(text: "Xin Chào "),
+                  TextSpan(
+                      text: "Phan Quốc Tuấn",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+          ),
+          const Icon(
+            CupertinoIcons.gift,
+            size: 35,
+            color: Colors.white,
+          )
+        ]),
+      ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+          builder: (BuildContext context, HomeState state) {
+        if (state is HomeStateLoad) {
+          return RefreshWidget(child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height / 3.4,
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          ...services
-                              .map((ser) => FeaturedServices(
-                                    ser: ser,
-                                  ))
-                              .toList()
-                        ]);
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: const Image(
+                                  image: NetworkImage(
+                                      "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: const Image(
+                                  image: NetworkImage(
+                                      "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
+                            ),
+                          ),
+                        ]),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RowTitile("Dịch vụ nổi bật", "Xem tất cả >", () {
+                    context.pushNamed("allService");
                   }),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                RowTitile("Các chi nhánh", "(6 chi nhánh)",(){}),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                    height: 310,
-                    child: BlocBuilder<BranchesBloc, BranchesState>(
-                      builder: (BuildContext context, state) {
-                        return ListView(
-                          scrollDirection: Axis.horizontal,
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ...state.branchList
-                                .map((branch) => BranchCard(branch: branch))
-                                .toList(),
-                          ],
-                        );
-                      },
-                    )),
-                const SizedBox(
-                  height: 20,
-                ),
-                ContacsUs()
-              ],
+                            ...state.services
+                                .map((ser) => FeaturedServices(
+                              ser: ser,
+                            ))
+                                .toList()
+                          ])),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  RowTitile("Các chi nhánh", "(6 chi nhánh)", () {}),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      height: 310,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          ...state.branches
+                              .map((branch) => BranchCard(branch: branch))
+                              .toList(),
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ContacsUs()
+                ],
+              ),
             ),
           ),
-        ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
+              onRefresh:()async {return  context.read<HomeBloc>().add(HomeEventLoad());}
+          ) ;
+
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.message,
+              color: Colors.white,
+            ),
+            shape: CircleBorder(),
+            backgroundColor: color.colorPrimary,
+            heroTag: 'message',
+          ),
+          SizedBox(
+            height: 7,
+          ),
+          FloatingActionButton(
               onPressed: () {},
-              child: Icon(
-                Icons.message,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.phone, color: Colors.white),
               shape: CircleBorder(),
               backgroundColor: color.colorPrimary,
-              heroTag: 'message',
-            ),
-            SizedBox(
-              height: 7,
-            ),
-            FloatingActionButton(
-                onPressed: () {},
-                child: Icon(Icons.phone, color: Colors.white),
-                shape: CircleBorder(),
-                backgroundColor: color.colorPrimary,
-                heroTag: 'phone'),
-          ],
-        ),
-
+              heroTag: 'phone'),
+        ],
+      ),
     );
   }
 }
