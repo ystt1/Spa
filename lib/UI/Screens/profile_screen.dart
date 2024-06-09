@@ -17,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Column(
         children: [
-          TopCard(),
+          const TopCard(),
           DefaultTabController(
             length: 2,
             child: Expanded(
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Expanded(
                     child: SingleChildScrollView(
                       child: SizedBox(
-                        height: 1000,
+                        height: 520,
                         width: double.infinity,
                         child: TabBarView(
                             children: [Text("Gói dịch vụ"), ProfileTab()]),

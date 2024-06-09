@@ -1,3 +1,7 @@
-abstract class HomeEvent{}
+abstract class HomeEvent{
 
-class HomeEventLoad extends HomeEvent{}
+}
+
+class HomeEventLoad extends HomeEvent{
+
+}

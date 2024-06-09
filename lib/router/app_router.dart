@@ -8,6 +8,7 @@ import 'package:tbdd/UI/Screens/DetailsScreen/all_services.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/branch_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/news_details.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/product_details.dart';
+import 'package:tbdd/UI/Screens/DetailsScreen/profile_settings.dart';
 import 'package:tbdd/UI/Screens/DetailsScreen/service_details.dart';
 import 'package:tbdd/UI/Screens/Signup.dart';
 import 'package:tbdd/UI/Screens/login_screen.dart';
@@ -142,6 +143,13 @@ final GoRouter _router = GoRouter(
               path: "/profile",
               name: "profile",
               builder: (context, state) => const ProfileScreen(),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: "settings",
+                  name: "profileSetting",
+                  builder: (context, state) => const ProfileSettings(),
+                ),
+              ],
             ),
           ],
         ),

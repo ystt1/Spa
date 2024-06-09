@@ -14,7 +14,9 @@ class BranchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() {context.pushNamed("branchDetails",extra:{ "branch":branch});},
+      onTap: () {
+        context.pushNamed("branchDetails", extra: {"branch": branch});
+      },
       child: Container(
           margin: const EdgeInsets.only(right: 20),
           width: MediaQuery.of(context).size.width * 4 / 5,
@@ -30,14 +32,27 @@ class BranchCard extends StatelessWidget {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(10)),
                       child: Stack(children: [
-                        Image(image: NetworkImage(branch.imageUrl)),
+                        Image(
+                          image: NetworkImage(branch.imageUrl),
+                          width: MediaQuery.of(context).size.width,
+                          height: 170,
+                          fit: BoxFit.cover,
+                        ),
                         Positioned(
                           right: 0,
                           child: Container(
-                            decoration: BoxDecoration(color: color.colorPrimary, borderRadius: BorderRadius.circular(5)),
-                            padding: EdgeInsets.only(left: 7,right: 7,top: 1,bottom: 1),
-
-                            child: Text("Xem bản đồ",style: TextStyle(fontSize: 12.5,color: Colors.white,fontWeight: FontWeight.bold),),
+                            decoration: BoxDecoration(
+                                color: color.colorPrimary,
+                                borderRadius: BorderRadius.circular(5)),
+                            padding: EdgeInsets.only(
+                                left: 7, right: 7, top: 1, bottom: 1),
+                            child: Text(
+                              "Xem bản đồ",
+                              style: TextStyle(
+                                  fontSize: 12.5,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         )
                       ])),
@@ -100,9 +115,10 @@ class BranchCard extends StatelessWidget {
                               fontWeight: FontWeight.w200,
                               fontStyle: FontStyle.italic)),
                       Text(
-                          isBranchOpen(branch.openingHours)
-                              ? 'Đang mở của'
-                              : 'Đã đóng cửa',
+                          // isBranchOpen(branch.openingHours)
+                          //     ? 'Đang mở của'
+                          //     : 'Đã đóng cửa',
+                          "abc",
                           style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w200,

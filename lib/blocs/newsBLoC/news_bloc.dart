@@ -8,7 +8,7 @@ class NewsBloc extends Bloc<NewsEvent,NewsState> {
   NewsBloc():super(NewsInitialState()){
     on<NewsEventLoad>((event, emit) async {
       emit(NewsLoadingState());
-      await Future.delayed(Duration(seconds: 1));
+
       List<News> highlighNews=newsList.where((element) => element.isFeatured).toList();
       emit(NewsLoadedState(listAllNews: newsList, listHighlighNews: highlighNews));
     });

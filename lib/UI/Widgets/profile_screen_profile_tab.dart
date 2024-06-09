@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tbdd/UI/Widgets/separate_line.dart';
 import 'package:tbdd/until/color.dart';
 
@@ -15,16 +16,24 @@ class ProfileTab extends StatefulWidget {
 class _ProfileTabState extends State<ProfileTab> {
   Widget RowWidget(
       {required String txt1, required Widget rightTxt, Function? function}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "${txt1}:",
-          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
-        ),
-        rightTxt
-      ],
+    return GestureDetector(
+      onTap: () {
+        if (function != null)
+          {
+            function();
+          }
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "${txt1}:",
+            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+          ),
+          rightTxt
+        ],
+      ),
     );
   }
 
@@ -55,12 +64,18 @@ class _ProfileTabState extends State<ProfileTab> {
                 )
               ],
             ),
+            function: () {
+              context.pushNamed("profileSetting");
+            },
           ),
           SizedBox(
             height: 20,
           ),
           SeparateLine(
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width),
           SizedBox(
             height: 20,
           ),
@@ -82,12 +97,18 @@ class _ProfileTabState extends State<ProfileTab> {
                 )
               ],
             ),
+            function: () {
+              context.pushNamed("profileSetting");
+            },
           ),
           SizedBox(
             height: 20,
           ),
           SeparateLine(
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width),
           SizedBox(
             height: 20,
           ),
@@ -103,7 +124,10 @@ class _ProfileTabState extends State<ProfileTab> {
             height: 20,
           ),
           SeparateLine(
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width),
           SizedBox(
             height: 20,
           ),
@@ -119,7 +143,10 @@ class _ProfileTabState extends State<ProfileTab> {
             height: 20,
           ),
           SeparateLine(
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width),
           SizedBox(
             height: 20,
           ),
@@ -141,12 +168,18 @@ class _ProfileTabState extends State<ProfileTab> {
                 )
               ],
             ),
+            function: () {
+              context.pushNamed("profileSetting");
+            },
           ),
           SizedBox(
             height: 20,
           ),
           SeparateLine(
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width),
           SizedBox(
             height: 20,
           ),

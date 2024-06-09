@@ -30,8 +30,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
-    context.read<HomeBloc>().add(HomeEventLoad());
+     context.read<HomeBloc>().add(HomeEventLoad());
   }
 
   Widget RowTitile(String txt1, String txt2, Function() function) {
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<HomeBloc, HomeState>(
           builder: (BuildContext context, HomeState state) {
         if (state is HomeStateLoad) {
+
           return RefreshWidget(child: Padding(
             padding: const EdgeInsets.all(10),
             child: SingleChildScrollView(
@@ -120,10 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Container(
-                      child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      child:  Wrap(
+                          runSpacing: 18,
+                          spacing: 30,
+                          alignment: WrapAlignment.spaceBetween,
                           children: [
                             ...state.services
                                 .map((ser) => FeaturedServices(

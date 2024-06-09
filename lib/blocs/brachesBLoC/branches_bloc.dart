@@ -6,7 +6,7 @@ import '../../Models/Branch.dart';
 
 List<Branch> branches = [
   Branch(
-    id: 1,
+    id: "1",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 1',
     address: 'Địa chỉ chi nhánh 1',
@@ -14,7 +14,7 @@ List<Branch> branches = [
     phoneNumber: '0123456789',
   ),
   Branch(
-    id: 2,
+    id: "2",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 2',
     address: 'Địa chỉ chi nhánh 2',
@@ -22,7 +22,7 @@ List<Branch> branches = [
     phoneNumber: '0123456789',
   ),
   Branch(
-    id: 3,
+    id: "3",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 3',
     address: 'Địa chỉ chi nhánh 3',
@@ -30,7 +30,7 @@ List<Branch> branches = [
     phoneNumber: '0123456789',
   ),
   Branch(
-    id: 4,
+    id: "4",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 4',
     address: 'Địa chỉ chi nhánh 4',
@@ -38,7 +38,7 @@ List<Branch> branches = [
     phoneNumber: '0123456789',
   ),
   Branch(
-    id: 5,
+    id: "5",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 5',
     address: 'Địa chỉ chi nhánh 5',
@@ -46,7 +46,7 @@ List<Branch> branches = [
     phoneNumber: '0123456789',
   ),
   Branch(
-    id: 6,
+    id: "6",
     imageUrl: 'https://cosp.com.vn/uploaded/2023/t2/16-2/thiet-ke-spa-duong-sinh-2.jpg',
     name: 'Chi nhánh 6',
     address: 'Địa chỉ chi nhánh 6',

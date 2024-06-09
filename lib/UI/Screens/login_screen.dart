@@ -13,8 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: 'tuan@gmail.com');
+  final _passwordController = TextEditingController(text: 'tuanabc4105');
 
   @override
   void dispose() {
@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: TextFieldWidget(
+
                       hinttext: "Email",
                       type: false,
                       controller: _emailController,

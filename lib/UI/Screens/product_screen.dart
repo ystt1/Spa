@@ -69,14 +69,12 @@ class _ProductScreenState extends State<ProductScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-
                        Container(
                          padding: EdgeInsets.symmetric(vertical: 5),
                         width: MediaQuery.of(context).size.width*5/6,
                         child: TextField(
                           maxLines: 1,
                           decoration: InputDecoration(
-
                             contentPadding: EdgeInsets.symmetric(vertical: 3),
                             hintText: 'Search ...',
                             border: OutlineInputBorder(
@@ -113,7 +111,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       Image(image: NetworkImage("https://vanchuyensieutoc.com/Uploads/images/tin%20tuc/my-pham-loreal.jpg")),
                       SizedBox(height: 30),
                       BlocBuilder<ProductBloc,ProductState>(
-                        builder: (BuildContext context, ProductState state) {return  Wrap(
+                        builder: (BuildContext context, ProductState state) {return
+                          Wrap(
                           runSpacing: 18,
                           spacing: 8,
                           alignment: WrapAlignment.spaceBetween,

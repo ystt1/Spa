@@ -28,7 +28,7 @@ class _BranchDetailsState extends State<BranchDetails> {
   void initState() {
     branch = widget.brancha ??
         Branch(
-          id: 9999,
+          id: "9999",
           imageUrl:
               'https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg',
           name: 'Chi nhánh Lỗi',

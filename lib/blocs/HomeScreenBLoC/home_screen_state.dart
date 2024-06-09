@@ -18,7 +18,7 @@ class HomeLoadingState extends HomeState{
 }
 
 class HomeStateLoad extends HomeState{
-  List<Branch> branches=[];
+   List<Branch> branches=[];
   List<Service> services=[];
   List<News> banner=[];
   HomeStateLoad(this.banner,this.services,this.branches);

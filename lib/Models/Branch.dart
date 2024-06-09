@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Branch {
-  final int id;
-  final String imageUrl;
-  final String name;
-  final String address;
-  final String openingHours;
-  final String phoneNumber;
+  late String id;
+  late String imageUrl;
+  late String name;
+  late String address;
+  late  String openingHours;
+  late String phoneNumber;
 
   Branch({
     required this.id,
@@ -14,4 +16,34 @@ class Branch {
     required this.openingHours,
     required this.phoneNumber,
   });
+
+
+  factory Branch.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return Branch(
+      id: data['ID (PK)'] ?? ' ',
+      imageUrl: data['imageUrl'] ?? '',
+      name: data['name'] ?? '',
+      address: data['address'] ?? data['address '],
+      openingHours: data['openingHours'] ?? '',
+      phoneNumber: data['phoneNumber'] ?? '',
+    );
+  }
 }
+
+
+class OpeningHour {
+  final String day;
+  final String time;
+
+  OpeningHour({required this.day, required this.time});
+
+  factory OpeningHour.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return OpeningHour(
+      day: data['day'] ?? '',
+      time: data['time'] ?? '',
+    );
+  }
+}
+

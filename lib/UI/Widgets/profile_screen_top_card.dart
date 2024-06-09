@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tbdd/UI/Widgets/profile_screen_top_card_avatar.dart';
+import 'package:tbdd/UI/Widgets/profile_screen_top_card_menu.dart';
 import 'package:tbdd/until/color.dart';
 
 class TopCard extends StatefulWidget {
@@ -11,6 +19,8 @@ class TopCard extends StatefulWidget {
 }
 
 class _TopCardState extends State<TopCard> {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,8 +46,7 @@ class _TopCardState extends State<TopCard> {
                       Text(
                         " 100 điểm",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400),
+                            color: Colors.white, fontWeight: FontWeight.w400),
                       )
                     ],
                   ),
@@ -60,38 +69,17 @@ class _TopCardState extends State<TopCard> {
                 ],
               )),
           Positioned(
-              top: 25,
-              right: 10,
-              child: Icon(
-                CupertinoIcons.ellipsis_vertical,
-                color: Colors.white,
-              )),
+            top: 15,
+            right: 0,
+            child: MenuChoose(),
+          ),
           Positioned(
               top: 30,
               left: 10,
               right: 10,
               child: Column(
                 children: [
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 43,
-                      ),
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                            padding: EdgeInsets.all(2),
-                            color: Colors.black,
-                            child: Icon(
-                              CupertinoIcons.camera_fill,
-                              color: Colors.white,
-                              size: 21,
-                            )),
-                      )
-                    ],
-                  ),
+                  Avatar(),
                   SizedBox(
                     height: 10,
                   ),
@@ -136,8 +124,7 @@ class _TopCardState extends State<TopCard> {
                     Text(
                       "Hạng thường - 100 điểm",
                       style: TextStyle(
-                          color: color.colorWord,
-                          fontWeight: FontWeight.bold),
+                          color: color.colorWord, fontWeight: FontWeight.bold),
                     ),
                     Container(
                       height: 13,
@@ -167,8 +154,7 @@ class _TopCardState extends State<TopCard> {
                     Text(
                       "Còn 100 điểm nữa để lên Hạng Bạc",
                       style: TextStyle(
-                          color: color.colorWord,
-                          fontWeight: FontWeight.w400),
+                          color: color.colorWord, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),

@@ -6,6 +6,7 @@ import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_bloc.dart';
 import 'package:tbdd/blocs/ProductsBLoC/products_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_event.dart';
+import 'package:tbdd/repositories/BranchRepository.dart';
 import 'package:tbdd/until/color.dart';
 
 import '../../blocs/HomeScreenBLoC/home_screen_event.dart';
@@ -23,7 +24,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-
+  BranchRepository _branchRepository=BranchRepository();
 
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
@@ -45,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
         BlocProvider<HomeBloc>(
-            create: (BuildContext context) => HomeBloc()),
+            create: (BuildContext context) => HomeBloc(_branchRepository)),
       ],
       child: Scaffold(
         body: SizedBox(
