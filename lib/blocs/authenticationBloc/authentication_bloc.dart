@@ -42,5 +42,20 @@ class AuthenticationBloc
         emit(AuthenticationState.AuthFailure);
       }
     });
+
+    on<LoginEvent>(((event, emit) async {
+      emit(AuthenticationState.AuthLoading);
+      try {
+        final res = await _authRepository.loginUser(
+            email: event.email, password: event.password);
+        if (res == "success") {
+          emit(AuthenticationState.AuthSuccess);
+        } else {
+          emit(AuthenticationState.AuthFailure);
+        }
+      } catch (_) {
+        emit(AuthenticationState.AuthFailure);
+      }
+    }));
   }
 }

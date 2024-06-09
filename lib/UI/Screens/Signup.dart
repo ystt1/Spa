@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             if (state == AuthenticationState.AuthFailure) {
               print("wrong");
             } else if (state == AuthenticationState.AuthSuccess) {
-              print("a");
+              print("Register success");
             }
           },
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
