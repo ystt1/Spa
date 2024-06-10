@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -6,18 +6,35 @@ import 'package:intl/intl.dart';
 import '../Models/Branch.dart';
 
 class BranchRepository{
-  final CollectionReference _branchFirebase = FirebaseFirestore.instance.collection("Branch");
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<Branch>> getBranches() async {
     late List<Branch> branches = [];
     try {
       QuerySnapshot querySnapshot = await _firestore.collection('Branch').get();
-      querySnapshot.docs.forEach((doc) async {
+      for (var doc in querySnapshot.docs) {
         Branch branch = Branch.fromFirestore(doc);
-        branch.openingHours=await getOpeningHourForDay(branch.id)??"";
+        branch.openingHours = await getOpeningHourForDay(branch.id) ?? "";
         branches.add(branch);
-      });
+
+      };
+    } catch (e) {
+      print("Error fetching branches: $e");
+    }
+    return branches;
+  }
+
+  Future<List<Branch>> getOtherBranches( Branch branch) async {
+    late List<Branch> branches = [];
+    try {
+      QuerySnapshot querySnapshot = await _firestore.collection('Branch').where("ID (PK)",isNotEqualTo: branch.id).get();
+      for (var doc in querySnapshot.docs) {
+        Branch branch = Branch.fromFirestore(doc);
+        branch.openingHours = await getOpeningHourForDay(branch.id) ?? "";
+        branches.add(branch);
+
+      };
     } catch (e) {
       print("Error fetching branches: $e");
     }

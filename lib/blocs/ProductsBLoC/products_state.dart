@@ -1,11 +1,14 @@
 import 'package:tbdd/Models/Product.dart';
 
 abstract class ProductState{
-  final List<Product> products;
-  final List<Product> sameProducts;
+  late List<Product> products;
+  late List<Product> sameProducts;
   ProductState(this.products,this.sameProducts);
 }
 
+class ProductInitial extends ProductState{
+  ProductInitial():super([],[]);
+}
 
 class ProductLoadedState extends ProductState{
   ProductLoadedState(List<Product> product):super(product,[]){

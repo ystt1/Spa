@@ -25,7 +25,7 @@ class _RefreshWidgetState extends State<RefreshWidget> {
         CupertinoSliverRefreshControl(
         onRefresh:()
     async {
-      print("abc");
+
       context.read<HomeBloc>().add(HomeEventLoad());
       return Future.value();
     },

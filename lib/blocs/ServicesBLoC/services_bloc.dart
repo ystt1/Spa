@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tbdd/Models/CategoryService.dart';
@@ -7,17 +6,21 @@ import 'package:tbdd/blocs/ServicesBLoC/services_event.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_state.dart';
 
 import '../../Models/Service.dart';
+import '../../repositories/ServiceRepository.dart';
 
 class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
-  ServicesBloc() : super(ServicesInitial()) {
-    on<ServiceLoadEvent>((event, emit) async {
-      return emit(ServicesLoaded(highlighServices, categoryServices));
+  final ServiceRepository _serviceRepository;
+  List<CategoryService> _listCate=[];
+  ServicesBloc(this._serviceRepository) : super(ServicesInitial()) {
+    on<ServiceLoadEvent>((event, emit)  async {
+      _listCate=await _serviceRepository.getAllCategory();
+      return emit(ServicesLoaded( _listCate));
     });
 
       on<ServiceSeachEvent>((event, emit) {
+        // List<CategoryService> listCate = searchServices(event.name);
         List<CategoryService> listCate = searchServices(event.name);
-
-        return emit(ServicesSearch(highlighServices, listCate));
+        return emit(ServicesSearch( listCate));
       });
   }
   List<CategoryService> searchServices(String query) {
@@ -25,7 +28,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
 
     List<CategoryService> result = [];
 
-    for (var category in categoryServices) {
+    for (var category in _listCate) {
       var filteredServices = category.services
           .where((service) => service.name.toLowerCase().contains(query))
           .toList();
@@ -54,7 +57,7 @@ List<Service> highlighServices = [
     duration: '30 mins',
     detail: 'A simple haircut to keep you looking fresh.',
     isHighlight: true,
-    price: 15.0,
+    price: 15,
     categoryId: '1',
   ),
   Service(
@@ -65,7 +68,7 @@ List<Service> highlighServices = [
     duration: '45 mins',
     detail: 'A more detailed haircut with styling included.',
     isHighlight: false,
-    price: 25.0,
+    price: 25,
     categoryId: '1',
   ),
   Service(
@@ -76,7 +79,7 @@ List<Service> highlighServices = [
     duration: '60 mins',
     detail: 'A relaxing full-body massage.',
     isHighlight: true,
-    price: 50.0,
+    price: 50,
     categoryId: '2',
   ),
 ];
@@ -94,7 +97,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A simple haircut to keep you looking fresh.',
         isHighlight: true,
-        price: 15.0,
+        price: 15,
         categoryId: '1',
       ),
       Service(
@@ -104,7 +107,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'A more detailed haircut with styling included.',
         isHighlight: false,
-        price: 25.0,
+        price: 25,
         categoryId: '1',
       ),
     ],
@@ -120,7 +123,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A relaxing full-body massage.',
         isHighlight: true,
-        price: 50.0,
+        price: 50,
         categoryId: '2',
       ),
       Service(
@@ -130,7 +133,7 @@ List<CategoryService> categoryServices = [
         duration: '90 mins',
         detail: 'A deeper massage to relieve tension.',
         isHighlight: false,
-        price: 70.0,
+        price: 70,
         categoryId: '2',
       ),
     ],
@@ -147,7 +150,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A simple manicure to tidy up your nails.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '3',
       ),
     ],
@@ -164,7 +167,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'A basic pedicure to clean and shape your nails.',
         isHighlight: true,
-        price: 25.0,
+        price: 25,
         categoryId: '4',
       ),
       Service(
@@ -174,7 +177,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A deluxe pedicure with exfoliation and massage.',
         isHighlight: false,
-        price: 40.0,
+        price: 40,
         categoryId: '4',
       ),
     ],
@@ -191,7 +194,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic facial to cleanse and refresh your skin.',
         isHighlight: true,
-        price: 30.0,
+        price: 30,
         categoryId: '5',
       ),
     ],
@@ -208,7 +211,7 @@ List<CategoryService> categoryServices = [
         duration: '120 mins',
         detail: 'A package including a massage and facial.',
         isHighlight: true,
-        price: 100.0,
+        price: 100,
         categoryId: '6',
       ),
     ],
@@ -225,7 +228,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic waxing service for smooth skin.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '7',
       ),
       Service(
@@ -236,7 +239,7 @@ List<CategoryService> categoryServices = [
         duration: '90 mins',
         detail: 'A comprehensive waxing service for the whole body.',
         isHighlight: true,
-        price: 60.0,
+        price: 60,
         categoryId: '7',
       ),
     ],
@@ -253,7 +256,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A root touch-up to cover regrowth.',
         isHighlight: true,
-        price: 40.0,
+        price: 40,
         categoryId: '8',
       ),
       Service(
@@ -264,7 +267,7 @@ List<CategoryService> categoryServices = [
         duration: '120 mins',
         detail: 'A full hair coloring service.',
         isHighlight: false,
-        price: 80.0,
+        price: 80,
         categoryId: '8',
       ),
     ],
@@ -281,7 +284,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'Makeup application for a day look.',
         isHighlight: true,
-        price: 30.0,
+        price: 30,
         categoryId: '9',
       ),
       Service(
@@ -292,7 +295,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'Makeup application for an evening look.',
         isHighlight: false,
-        price: 50.0,
+        price: 50,
         categoryId: '9',
       ),
     ],
@@ -309,7 +312,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic skincare routine.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '10',
       ),
       Service(
@@ -320,7 +323,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'An advanced skincare routine with treatments.',
         isHighlight: true,
-        price: 50.0,
+        price: 50,
         categoryId: '10',
       ),
     ],
@@ -337,7 +340,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A simple haircut to keep you looking fresh.',
         isHighlight: true,
-        price: 15.0,
+        price: 15,
         categoryId: '1',
       ),
       Service(
@@ -347,7 +350,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'A more detailed haircut with styling included.',
         isHighlight: false,
-        price: 25.0,
+        price: 25,
         categoryId: '1',
       ),
     ],
@@ -363,7 +366,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A relaxing full-body massage.',
         isHighlight: true,
-        price: 50.0,
+        price: 50,
         categoryId: '2',
       ),
       Service(
@@ -373,7 +376,7 @@ List<CategoryService> categoryServices = [
         duration: '90 mins',
         detail: 'A deeper massage to relieve tension.',
         isHighlight: false,
-        price: 70.0,
+        price: 70,
         categoryId: '2',
       ),
     ],
@@ -390,7 +393,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A simple manicure to tidy up your nails.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '3',
       ),
     ],
@@ -407,7 +410,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'A basic pedicure to clean and shape your nails.',
         isHighlight: true,
-        price: 25.0,
+        price: 25,
         categoryId: '4',
       ),
       Service(
@@ -417,7 +420,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A deluxe pedicure with exfoliation and massage.',
         isHighlight: false,
-        price: 40.0,
+        price: 40,
         categoryId: '4',
       ),
     ],
@@ -434,7 +437,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic facial to cleanse and refresh your skin.',
         isHighlight: true,
-        price: 30.0,
+        price: 30,
         categoryId: '5',
       ),
     ],
@@ -451,7 +454,7 @@ List<CategoryService> categoryServices = [
         duration: '120 mins',
         detail: 'A package including a massage and facial.',
         isHighlight: true,
-        price: 100.0,
+        price: 100,
         categoryId: '6',
       ),
     ],
@@ -468,7 +471,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic waxing service for smooth skin.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '7',
       ),
       Service(
@@ -479,7 +482,7 @@ List<CategoryService> categoryServices = [
         duration: '90 mins',
         detail: 'A comprehensive waxing service for the whole body.',
         isHighlight: true,
-        price: 60.0,
+        price: 60,
         categoryId: '7',
       ),
     ],
@@ -496,7 +499,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'A root touch-up to cover regrowth.',
         isHighlight: true,
-        price: 40.0,
+        price: 40,
         categoryId: '8',
       ),
       Service(
@@ -507,7 +510,7 @@ List<CategoryService> categoryServices = [
         duration: '120 mins',
         detail: 'A full hair coloring service.',
         isHighlight: false,
-        price: 80.0,
+        price: 80,
         categoryId: '8',
       ),
     ],
@@ -524,7 +527,7 @@ List<CategoryService> categoryServices = [
         duration: '45 mins',
         detail: 'Makeup application for a day look.',
         isHighlight: true,
-        price: 30.0,
+        price: 30,
         categoryId: '9',
       ),
       Service(
@@ -535,7 +538,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'Makeup application for an evening look.',
         isHighlight: false,
-        price: 50.0,
+        price: 50,
         categoryId: '9',
       ),
     ],
@@ -552,7 +555,7 @@ List<CategoryService> categoryServices = [
         duration: '30 mins',
         detail: 'A basic skincare routine.',
         isHighlight: false,
-        price: 20.0,
+        price: 20,
         categoryId: '10',
       ),
       Service(
@@ -563,7 +566,7 @@ List<CategoryService> categoryServices = [
         duration: '60 mins',
         detail: 'An advanced skincare routine with treatments.',
         isHighlight: true,
-        price: 50.0,
+        price: 50,
         categoryId: '10',
       ),
     ],

@@ -4,6 +4,8 @@ abstract class ProductEvent{
 
 }
 
+class LoadProductEvent extends ProductEvent{}
+
 class SearchProductsEvent extends ProductEvent{
   final String name;
   SearchProductsEvent({required this.name});

@@ -22,7 +22,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   void initState() {
     news = widget.news ??
         News(
-          id: 10000,
+          id: "10000",
           imageUrl:
               'https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcTQZQgd1d7GS-mpwe4-zFyGVtAxMg9ct_nFsY845sks9zGisJxSXiaXysaXX1JQJm_o',
           title: 'ERROR',

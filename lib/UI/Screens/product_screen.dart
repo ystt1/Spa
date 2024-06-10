@@ -18,6 +18,12 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  @override
+  void initState() {
+    context.read<ProductBloc>().add(LoadProductEvent());
+    // TODO: implement initState
+    super.initState();
+  }
 
   late bool _isLove=false;
 

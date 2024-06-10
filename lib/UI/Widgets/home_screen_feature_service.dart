@@ -17,8 +17,7 @@ class FeaturedServices extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 4,
         child: Column(children: [
           Image(
-              image: NetworkImage(ser.imgUrl
-              )),
+              image: NetworkImage(ser.imgUrl),width:MediaQuery.of(context).size.width ,height: 70 ,fit: BoxFit.cover,),
           Text(
             ser.name,
             textAlign: TextAlign.start,

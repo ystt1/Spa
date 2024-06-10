@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Service {
   final String id;
   final String imgUrl;
@@ -5,7 +7,7 @@ class Service {
   final String duration;
   final String detail;
   final bool isHighlight;
-  final double price;
+  final int price;
   final String categoryId;
 
   Service({
@@ -19,16 +21,17 @@ class Service {
     required this.categoryId,
   });
 
-  factory Service.fromJson(Map<String, dynamic> json) {
+  factory Service.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Service(
-      id: json['id'],
-      imgUrl: json['imgUrl'],
-      name: json['name'],
-      duration: json['duration'],
-      detail: json['detail'],
-      isHighlight: json['isHighlight'],
-      price: json['price'],
-      categoryId: json['categoryId'],
+      id: data['ID (PK)'] ?? '',
+      imgUrl: data['imageUrl'] ?? '',
+      name: data['name'] ?? '',
+      duration: data['duration'] ?? '',
+      detail: data['detail'] ?? '',
+      isHighlight: data['isHighlight'] ?? '',
+      price: data['price'] ?? '',
+      categoryId: data['categoryID (FK)'] ?? '',
     );
   }
 

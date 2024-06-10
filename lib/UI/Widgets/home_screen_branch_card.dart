@@ -115,10 +115,10 @@ class BranchCard extends StatelessWidget {
                               fontWeight: FontWeight.w200,
                               fontStyle: FontStyle.italic)),
                       Text(
-                          // isBranchOpen(branch.openingHours)
-                          //     ? 'Đang mở của'
-                          //     : 'Đã đóng cửa',
-                          "abc",
+                           !isStoreClosed(branch.openingHours)
+                              ? 'Đang mở của'
+                              : 'Đã đóng cửa',
+
                           style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w200,

@@ -27,7 +27,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
           duration: 'ERROR',
           detail: 'ERROR',
           isHighlight: false,
-          price: 20.0,
+          price: 20,
           categoryId: '0',
         );
     // TODO: implement initState

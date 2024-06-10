@@ -15,8 +15,10 @@ import 'package:tbdd/blocs/ServicesBLoC/services_event.dart';
 import 'package:tbdd/blocs/ServicesBLoC/services_state.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_bloc.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_state.dart';
+import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/until/color.dart';
 
+import '../../Models/News.dart';
 import '../Widgets/home_screen_contact_us.dart';
 import '../Widgets/home_screen_feature_service.dart';
 
@@ -51,6 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         )
       ],
+    );
+  }
+  Widget Banner(News news)
+  {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Image(
+            image: NetworkImage(
+                news.imageUrl),width: MediaQuery.of(context).size.width,height: 260,fit: BoxFit.cover,),
+      ),
     );
   }
 
@@ -92,24 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Image(
-                                  image: NetworkImage(
-                                      "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Image(
-                                  image: NetworkImage(
-                                      "https://storage-vnportal.vnpt.vn/sla-ubnd/4775/NTM/4_May_2024_021321_GMTthong-bao_553f5.png")),
-                            ),
-                          ),
+                          ...state.banner.map((e) => Banner(e)).toList()
                         ]),
                   ),
                   SizedBox(
@@ -125,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child:  Wrap(
                           runSpacing: 18,
                           spacing: 30,
-                          alignment: WrapAlignment.spaceBetween,
+                          alignment: WrapAlignment.start,
                           children: [
                             ...state.services
                                 .map((ser) => FeaturedServices(

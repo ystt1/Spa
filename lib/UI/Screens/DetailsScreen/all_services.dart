@@ -20,17 +20,20 @@ class AllService extends StatefulWidget {
 class _AllServiceState extends State<AllService> {
   @override
   void initState() {
+    context.read<ServicesBloc>().add(ServiceLoadEvent());
     _isOpen = List<bool>.generate(
-        BlocProvider
-            .of<ServicesBloc>(context)
-            .state
-            .ListCateService
-            .length,
+        99,
             (index) => false);
     super.initState();
   }
 
-  late List<bool> _isOpen;
+  late List<bool> _isOpen = List<bool>.generate(
+      BlocProvider
+          .of<ServicesBloc>(context)
+          .state
+          .ListCateService
+          .length,
+          (index) => false);
   late List<bool> _searchExpandedItemOpen;
 
   Widget ExpandedItemBody(Service service) {
@@ -197,6 +200,7 @@ class _AllServiceState extends State<AllService> {
             child: SingleChildScrollView(
               child: BlocBuilder<ServicesBloc, ServicesState>(
                   builder: (BuildContext context, ServicesState state) {
+
                     return ExpansionPanelList(
                         elevation: 1,
                         dividerColor: Colors.blueGrey,
@@ -209,9 +213,10 @@ class _AllServiceState extends State<AllService> {
                         ],
                         expansionCallback: (i, isOpen) =>
                         {
-                          setState(() {
-                            _isOpen[i] = isOpen;
-                          })
+                          setState(()
+                            => _isOpen[i] = isOpen
+
+                          )
                         });
                   }),
             ),

@@ -48,3 +48,37 @@ String timeAgo(DateTime postedTime) {
     return 'just now';
   }
 }
+
+
+
+bool isStoreClosed(String timeRange) {
+  // Bước 1: Phân tích chuỗi thời gian
+  List<String> times = timeRange.split(' - ');
+  String openingTime = times[0];
+  String closingTime = times[1];
+
+  // Chuyển đổi giờ mở và giờ đóng thành TimeOfDay
+  TimeOfDay openingTimeOfDay = TimeOfDay(
+    hour: int.parse(openingTime.split(':')[0]),
+    minute: int.parse(openingTime.split(':')[1]),
+  );
+
+  TimeOfDay closingTimeOfDay = TimeOfDay(
+    hour: int.parse(closingTime.split(':')[0]),
+    minute: int.parse(closingTime.split(':')[1]),
+  );
+
+  // Bước 2: Lấy thời gian hiện tại
+  DateTime now = DateTime.now();
+
+  // Chuyển đổi TimeOfDay thành DateTime để so sánh
+  DateTime openingDateTime = DateTime(now.year, now.month, now.day, openingTimeOfDay.hour, openingTimeOfDay.minute);
+  DateTime closingDateTime = DateTime(now.year, now.month, now.day, closingTimeOfDay.hour, closingTimeOfDay.minute);
+
+  // Bước 3: So sánh thời gian hiện tại với giờ mở và giờ đóng
+  if (now.isBefore(openingDateTime) || now.isAfter(closingDateTime)) {
+    return true;  // Cửa hàng đã đóng cửa
+  } else {
+    return false; // Cửa hàng vẫn mở cửa
+  }
+}

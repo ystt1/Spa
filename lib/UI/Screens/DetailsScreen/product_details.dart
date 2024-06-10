@@ -26,11 +26,11 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.initState();
     product = widget.product ??
         Product(
-            id: 404,
+            id: "404",
             urlImage:
                 "https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg",
             name: "ERROR",
-            price: 0,
+            price: "0",
             details: "ERROR",
             brand: "ERROR");
     context.read<ProductBloc>().add(SameProductInitialEvent(product: product));

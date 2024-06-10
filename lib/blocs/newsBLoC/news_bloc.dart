@@ -1,23 +1,25 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_event.dart';
 import 'package:tbdd/blocs/newsBLoC/news_state.dart';
+import 'package:tbdd/repositories/NewsRepository.dart';
 
 import '../../Models/News.dart';
 
 class NewsBloc extends Bloc<NewsEvent,NewsState> {
+  final NewsRepository _newsRepository=NewsRepository();
   NewsBloc():super(NewsInitialState()){
     on<NewsEventLoad>((event, emit) async {
       emit(NewsLoadingState());
-
-      List<News> highlighNews=newsList.where((element) => element.isFeatured).toList();
-      emit(NewsLoadedState(listAllNews: newsList, listHighlighNews: highlighNews));
+      List<News> highlishNews=await _newsRepository.getHighlighNews();
+      List<News> allNews=await _newsRepository.getAllNews();
+      emit(NewsLoadedState(listAllNews: allNews,listHighlighNews: highlishNews));
     });
   }
 }
 
 List<News> newsList = [
   News(
-    id: 1,
+    id: "1",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Featured News 1',
@@ -26,7 +28,7 @@ List<News> newsList = [
     isFeatured: true,
   ),
   News(
-    id: 2,
+    id: "2",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Featured News 2',
@@ -35,7 +37,7 @@ List<News> newsList = [
     isFeatured: true,
   ),
   News(
-    id: 3,
+    id: "3",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Non-featured News 1',
@@ -44,7 +46,7 @@ List<News> newsList = [
     isFeatured: false,
   ),
   News(
-    id: 4,
+    id: "4",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Non-featured News 2',
@@ -53,7 +55,7 @@ List<News> newsList = [
     isFeatured: false,
   ),
   News(
-    id: 5,
+    id: "5",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Non-featured News 3',
@@ -62,7 +64,7 @@ List<News> newsList = [
     isFeatured: false,
   ),
   News(
-    id: 6,
+    id: "6",
     imageUrl:
     'https://img.freepik.com/free-photo/3d-rendering-illustration-letter-blocks-forming-word-news-white-background_181624-60840.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais',
     title: 'Non-featured News 4',

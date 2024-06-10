@@ -9,10 +9,7 @@ abstract class BranchesState{
   List<Branch> branchList=[];
   List<Branch> otherList=[];
   BranchesState(this.branchList,this.otherList){
-    if (branchList != [] && branchList.isNotEmpty) {
-      print(branchList.length);
-      branchList=branchList;
-    }
+
   }
 }
 

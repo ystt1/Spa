@@ -5,7 +5,7 @@ class Branch {
   late String imageUrl;
   late String name;
   late String address;
-  late  String openingHours;
+  late String openingHours;
   late String phoneNumber;
 
   Branch({
@@ -32,18 +32,5 @@ class Branch {
 }
 
 
-class OpeningHour {
-  final String day;
-  final String time;
 
-  OpeningHour({required this.day, required this.time});
-
-  factory OpeningHour.fromFirestore(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return OpeningHour(
-      day: data['day'] ?? '',
-      time: data['time'] ?? '',
-    );
-  }
-}
 

@@ -7,6 +7,8 @@ import 'package:tbdd/blocs/ProductsBLoC/products_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_event.dart';
 import 'package:tbdd/repositories/BranchRepository.dart';
+import 'package:tbdd/repositories/NewsRepository.dart';
+import 'package:tbdd/repositories/ServiceRepository.dart';
 import 'package:tbdd/until/color.dart';
 
 import '../../blocs/HomeScreenBLoC/home_screen_event.dart';
@@ -25,7 +27,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   BranchRepository _branchRepository=BranchRepository();
-
+  ServiceRepository _serviceRepository=ServiceRepository();
+  NewsRepository _newsRepository=NewsRepository();
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -40,13 +43,13 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider<BranchesBloc>(
             create: (BuildContext context) => BranchesBloc()),
         BlocProvider<ServicesBloc>(
-            create: (BuildContext context) => ServicesBloc()),
+            create: (BuildContext context) => ServicesBloc(_serviceRepository)),
         BlocProvider<NewsBloc>(
             create: (BuildContext context) => NewsBloc()),
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
         BlocProvider<HomeBloc>(
-            create: (BuildContext context) => HomeBloc(_branchRepository)),
+            create: (BuildContext context) => HomeBloc(_branchRepository,_serviceRepository,_newsRepository)),
       ],
       child: Scaffold(
         body: SizedBox(
