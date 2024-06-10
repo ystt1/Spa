@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tbdd/Models/CategoryService.dart';
 import 'package:tbdd/Models/Service.dart';
 
+import '../until/function.dart';
+
 class ServiceRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -49,6 +51,9 @@ class ServiceRepository {
       await _firestore.collection('Service').where("categoryID (FK)",isEqualTo: categoryService.id).get();
       for (var doc in querySnapshot.docs) {
         Service service = Service.fromFirestore(doc);
+        //service.imgUrl=await getImageUrl()??'https://vuanem.com/blog/wp-content/uploads/2023/06/massage-spa-body.jpg';
+        //service.imgUrl="https://firebasestorage.googleapis.com/v0/b/tbdd-9d1fd.appspot.com/o/ddtv_ad_sv.jpg?alt=media&token=efb34894-b252-411d-9b96-cf62aadb3745";
+
         services.add(service);
       }
       ;

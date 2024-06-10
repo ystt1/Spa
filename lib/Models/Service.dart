@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Service {
   final String id;
-  final String imgUrl;
+  late  String imgUrl;
   final String name;
   final String duration;
   final String detail;

@@ -1,20 +1,20 @@
 import '../../Models/News.dart';
 
 abstract class NewsState {
+  List<News> listAllNews=[];
+  NewsState({required this.listAllNews});
 }
 
 class NewsInitialState extends NewsState{
-
+  NewsInitialState():super(listAllNews: []);
 }
 
 class NewsLoadingState extends NewsState{
-
+  NewsLoadingState():super(listAllNews: []);
 }
 
 class NewsLoadedState extends NewsState{
-  List<News> listAllNews=[];
-  List<News> listHighlighNews=[];
-  NewsLoadedState({required this.listAllNews,required this.listHighlighNews});
+  NewsLoadedState(List<News> list):super(listAllNews: list);
 }
 
 

@@ -4,23 +4,20 @@ import '../../Models/News.dart';
 import '../../Models/Service.dart';
 
 abstract class HomeState{
-
-}
-
-
-
-class HomeStateIninitial extends HomeState{
-
-}
-
-class HomeLoadingState extends HomeState{
-
-}
-
-class HomeStateLoad extends HomeState{
-   List<Branch> branches=[];
+  List<Branch> branches=[];
   List<Service> services=[];
   List<News> banner=[];
-  HomeStateLoad(this.banner,this.services,this.branches);
+  HomeState(this.branches,this.services,this.banner);
 }
+
+class HomeStateIninitial extends HomeState{
+  HomeStateIninitial():super([],[],[]);
+}
+class HomeLoadingState extends HomeState{
+  HomeLoadingState(List<Branch> branches,
+  List<Service> services,
+  List<News> banner):super(branches,services,banner);
+}
+
+
 

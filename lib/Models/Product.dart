@@ -7,6 +7,7 @@ class Product {
   String price;
   String details;
   String brand;
+  late bool Favorite=false;
 
   Product({
     required this.id,

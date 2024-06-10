@@ -93,3 +93,24 @@ launchURL(Uri url) async {
     print("can't launch ${url}");
   }
 }
+
+
+// Future<String?> getImageUrl() async {
+//   try {
+//     // Tạo reference đến tệp trong Firebase Storage
+//     firebase_storage.FirebaseStorage storage =
+//         firebase_storage.FirebaseStorage.instance;
+//     firebase_storage.Reference ref = storage
+//         .ref()
+//         .child('ddtv_ad_sv.jpg'); // Đặt đúng đường dẫn đến tệp của bạn
+//
+//     // Lấy URL công khai
+//     String downloadUrl = await ref.getDownloadURL();
+//
+//     // Lấy URL công khai
+//
+//     return downloadUrl;
+//   } catch (e) {
+//     print('Failed to get download URL: $e');
+//   }
+// }

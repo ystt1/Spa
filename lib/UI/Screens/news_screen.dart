@@ -7,6 +7,7 @@ import 'package:tbdd/UI/Widgets/refresh_widget.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_state.dart';
 
+import '../../Models/News.dart';
 import '../../blocs/newsBLoC/news_event.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -33,6 +34,8 @@ class _NewsScreenState extends State<NewsScreen> {
           body: BlocBuilder<NewsBloc, NewsState>(
               builder: (BuildContext context, state) {
             if (state is NewsLoadedState) {
+              List<News> highlighNews=state.listAllNews.where((element) => element.isFeatured).toList();
+              List<News> favoriteNews=state.listAllNews.where((element) => element.Favorite).toList();
               return Column(
                 children: [
                   const TabBar(tabs: [
@@ -53,11 +56,11 @@ class _NewsScreenState extends State<NewsScreen> {
                             .map((news) => ItemTabView(news: news))
                       ]),
                       ListView(shrinkWrap: true, children: [
-                        ...state.listHighlighNews
+                        ...highlighNews
                             .map((news) => ItemTabView(news: news))
                       ]),
                       ListView(shrinkWrap: true, children: [
-                        ...state.listHighlighNews
+                        ...favoriteNews
                             .map((news) => ItemTabView(news: news))
                       ]),
                     ]),

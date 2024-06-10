@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tbdd/UI/Widgets/separate_line.dart';
+import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
+import 'package:tbdd/blocs/newsBLoC/news_event.dart';
 import 'package:tbdd/until/color.dart';
 import 'package:tbdd/until/function.dart';
 
@@ -64,9 +67,19 @@ class ItemTabView extends StatelessWidget {
         Positioned(
             top: 20,
             right: 20,
-            child: Icon(
-              CupertinoIcons.heart,
-              color: Colors.red,size: 40,
+            child: GestureDetector(
+              onTap: (){context.read<NewsBloc>().add(EventFavoriteNews( news: news));},
+              child: Container(
+                width: 50,
+                height: 50,
+                child: Icon(
+                  news.Favorite?
+                  CupertinoIcons.heart_fill:
+                  CupertinoIcons.heart
+                  ,
+                  color: Colors.red,size: 40,
+                ),
+              ),
             )),
       ],
     );
