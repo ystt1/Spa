@@ -4,3 +4,5 @@ part of 'booking_bloc.dart';
 sealed class BookingEvent {}
 
 class getBranches extends BookingEvent{}
+
+class getTimeWeek extends BookingEvent{}

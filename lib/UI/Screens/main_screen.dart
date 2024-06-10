@@ -31,6 +31,7 @@ class _MainScreenState extends State<MainScreen> {
   BranchRepository _branchRepository = BranchRepository();
   ServiceRepository _serviceRepository = ServiceRepository();
   NewsRepository _newsRepository = NewsRepository();
+  BookingRepository _bookingRepository = BookingRepository();
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -50,7 +51,8 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
         BlocProvider<BookingBloc>(
-            create: (BuildContext context) => BookingBloc(_branchRepository)),
+            create: (BuildContext context) =>
+                BookingBloc(_branchRepository, _bookingRepository)),
         BlocProvider<HomeBloc>(
             create: (BuildContext context) => HomeBloc(
                 _branchRepository, _serviceRepository, _newsRepository)),
