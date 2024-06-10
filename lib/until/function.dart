@@ -94,23 +94,11 @@ launchURL(Uri url) async {
   }
 }
 
-
-// Future<String?> getImageUrl() async {
-//   try {
-//     // Tạo reference đến tệp trong Firebase Storage
-//     firebase_storage.FirebaseStorage storage =
-//         firebase_storage.FirebaseStorage.instance;
-//     firebase_storage.Reference ref = storage
-//         .ref()
-//         .child('ddtv_ad_sv.jpg'); // Đặt đúng đường dẫn đến tệp của bạn
-//
-//     // Lấy URL công khai
-//     String downloadUrl = await ref.getDownloadURL();
-//
-//     // Lấy URL công khai
-//
-//     return downloadUrl;
-//   } catch (e) {
-//     print('Failed to get download URL: $e');
-//   }
-// }
+Future<void> launchMapsUrl(String address) async {
+  final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}");
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}

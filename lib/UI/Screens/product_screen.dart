@@ -162,7 +162,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
                         builder: (BuildContext context, ProductState state) {
                           List<Product> products=[];
-                          _isLove?products=state.products:products=state.products.where((element) => element.Favorite==true).toList();
+                          !_isLove?products=state.products:products=state.products.where((element) => element.Favorite==true).toList();
                           return Wrap(
                             runSpacing: 18,
                             spacing: 8,
