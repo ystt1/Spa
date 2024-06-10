@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,6 +18,7 @@ import 'package:tbdd/blocs/brachesBLoC/branches_bloc.dart';
 import 'package:tbdd/blocs/brachesBLoC/branches_state.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/until/color.dart';
+import 'package:tbdd/until/function.dart';
 
 import '../../Models/News.dart';
 import '../Widgets/home_screen_contact_us.dart';
@@ -30,9 +32,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+  late String phone='';
+
+  Future<void> fetchContactData() async {
+    try {
+      QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('Contact').get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot doc = querySnapshot.docs.first;
+        final data = doc.data() as Map<String, dynamic>;
+        setState(() {
+          phone = data['phoneNumber'];
+        });
+      }
+    } catch (e) {
+      print("Error fetching contact data: $e");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchContactData();
     // TODO: implement initState
      context.read<HomeBloc>().add(HomeEventLoad());
   }
@@ -168,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {launchURL(Uri.parse("sms:${phone}"));},
             child: Icon(
               Icons.message,
               color: Colors.white,
@@ -181,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 7,
           ),
           FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {launchURL(Uri.parse("tel:${phone}"));},
               child: Icon(Icons.phone, color: Colors.white),
               shape: CircleBorder(),
               backgroundColor: color.colorPrimary,

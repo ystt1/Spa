@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 TimeOfDay parseTime(String timeStr) {
   final timeParts = timeStr.split(' ');
@@ -80,5 +81,15 @@ bool isStoreClosed(String timeRange) {
     return true;  // Cửa hàng đã đóng cửa
   } else {
     return false; // Cửa hàng vẫn mở cửa
+  }
+}
+
+
+launchURL(Uri url) async {
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  }
+  else{
+    print("can't launch ${url}");
   }
 }
