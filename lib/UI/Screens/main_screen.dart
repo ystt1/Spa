@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 import 'package:tbdd/blocs/HomeScreenBLoC/home_screen_bloc.dart';
 import 'package:tbdd/blocs/ProductsBLoC/products_bloc.dart';
+import 'package:tbdd/blocs/bookingBloC/booking_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_event.dart';
+import 'package:tbdd/repositories/BookingRepository.dart';
 import 'package:tbdd/repositories/BranchRepository.dart';
 import 'package:tbdd/repositories/NewsRepository.dart';
 import 'package:tbdd/repositories/ServiceRepository.dart';
@@ -26,9 +28,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  BranchRepository _branchRepository=BranchRepository();
-  ServiceRepository _serviceRepository=ServiceRepository();
-  NewsRepository _newsRepository=NewsRepository();
+  BranchRepository _branchRepository = BranchRepository();
+  ServiceRepository _serviceRepository = ServiceRepository();
+  NewsRepository _newsRepository = NewsRepository();
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -44,12 +46,14 @@ class _MainScreenState extends State<MainScreen> {
             create: (BuildContext context) => BranchesBloc()),
         BlocProvider<ServicesBloc>(
             create: (BuildContext context) => ServicesBloc(_serviceRepository)),
-        BlocProvider<NewsBloc>(
-            create: (BuildContext context) => NewsBloc()),
+        BlocProvider<NewsBloc>(create: (BuildContext context) => NewsBloc()),
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
+        BlocProvider<BookingBloc>(
+            create: (BuildContext context) => BookingBloc(_branchRepository)),
         BlocProvider<HomeBloc>(
-            create: (BuildContext context) => HomeBloc(_branchRepository,_serviceRepository,_newsRepository)),
+            create: (BuildContext context) => HomeBloc(
+                _branchRepository, _serviceRepository, _newsRepository)),
       ],
       child: Scaffold(
         body: SizedBox(
