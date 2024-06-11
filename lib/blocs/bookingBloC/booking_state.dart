@@ -34,5 +34,15 @@ final class GetServiceSuccess extends BookingState {
   final List<Service> sv;
 
   GetServiceSuccess({required this.sv});
+}
+class AddOrderSuccess extends BookingState {
+  final String orderId;
 
+  AddOrderSuccess({required this.orderId});
+}
+
+class AddOrderFailure extends BookingState {
+  final String error;
+
+  AddOrderFailure({required this.error});
 }

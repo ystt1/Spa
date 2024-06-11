@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tbdd/Models/Branch.dart';
 import 'package:tbdd/Models/Employee.dart';
+import 'package:tbdd/Models/Order.dart';
 import 'package:tbdd/Models/Service.dart';
 import 'package:tbdd/repositories/BookingRepository.dart';
 import 'package:tbdd/repositories/BranchRepository.dart';
@@ -37,16 +38,6 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         emit(BookingFailure(message: "error fetch branches"));
       }
     });
-    on<getTimeWeek>(
-      (event, emit) {
-        try {
-          final listTime = _bookingRepository.getTimeWeek();
-          emit(GetDataTimeSuccess(times: listTime));
-        } catch (e) {
-          emit(BookingFailure(message: "error fetch data time"));
-        }
-      },
-    );
 
     on<getEmployee>(
       (event, emit) async {
@@ -59,5 +50,15 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         }
       },
     );
+
+    on<Addorder>((event, emit) async {
+      emit(BookingLoading());
+      try {
+        await _bookingRepository.addOrder(event.Order);
+        emit(AddOrderSuccess(orderId: 'Order successfully added'));
+      } catch (e) {
+        emit(AddOrderFailure(error: e.toString()));
+      }
+    });
   }
 }
