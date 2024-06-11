@@ -1,9 +1,12 @@
 import 'package:choice/choice.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:tbdd/Models/Branch.dart';
+import 'package:tbdd/Models/Employee.dart';
+import 'package:tbdd/Models/Service.dart';
 import 'package:tbdd/UI/Widgets/ButtonWidget.dart';
 import 'package:tbdd/blocs/bookingBloC/booking_bloc.dart';
 import 'package:tbdd/repositories/BranchRepository.dart';
@@ -19,12 +22,17 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   DateTime now = DateTime.now();
   Branch? singleSelected;
-  String? selectedDay;
+  DateTime? selectedDay;
+  Employee? singleSelectedEmployee;
+  Service? singleSelectedService;
 
   List<Branch> choice = [];
   List<DateTime> time = [];
   List<DateTime> timeStart = [];
+  List<Service> service = [];
   List<DateTime> selectedValueTimeStart = [];
+
+  List<Employee> employee = [];
 
   void initializeTimeStart() {
     timeStart = [
@@ -46,12 +54,25 @@ class _BookingScreenState extends State<BookingScreen> {
     ];
   }
 
+  void initializeTime() {
+    final now = DateTime.now();
+    time = [now];
+
+    for (int i = 1; i <= 6; i++) {
+      final nextDay = now.add(Duration(days: i));
+      time.add(nextDay);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    initializeTimeStart(); // Initialize time slots
+    initializeTimeStart();
+    initializeTime(); // Initialize time slots
     context.read<BookingBloc>().add(getBranches());
     context.read<BookingBloc>().add(getTimeWeek());
+    context.read<BookingBloc>().add(getEmployee());
+    context.read<BookingBloc>().add(getService());
   }
 
   void setSelectedValueTimeStart(List<DateTime> value) {
@@ -64,8 +85,13 @@ class _BookingScreenState extends State<BookingScreen> {
     print(value?.name);
   }
 
-  void setSelectedDayValue(String? value) {
+  void setSelectedDayValue(DateTime? value) {
     setState(() => selectedDay = value);
+    print(value);
+  }
+
+  void setSelectedSerrviceValue(Service? value) {
+    setState(() => singleSelectedService = value);
     print(value);
   }
 
@@ -75,6 +101,10 @@ class _BookingScreenState extends State<BookingScreen> {
 
   String formatTime(DateTime dateTime) {
     return DateFormat('HH:mm').format(dateTime);
+  }
+
+  void setSingleSelectedEmployee(Employee? value) {
+    setState(() => singleSelectedEmployee = value);
   }
 
   @override
@@ -88,14 +118,26 @@ class _BookingScreenState extends State<BookingScreen> {
               if (state is BookingSuccess) {
                 choice = state.branches;
                 return buildBookingContent(context);
-              } else if (state is DataTimeSuccess) {
-                time = state.times;
+              }
+              if (state is GetDataTimeSuccess) {
+                print(time);
                 return buildBookingContent(context);
-              } else if (state is BookingLoading) {
+              }
+              if (state is GetEmployeeSuccess) {
+                employee = state.em;
+                print(employee);
+                return buildBookingContent(context);
+              }
+              if (state is GetServiceSuccess) {
+                service = state.sv;
+                return buildBookingContent(context);
+              }
+              if (state is BookingLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is BookingFailure) {
+              }
+              if (state is BookingFailure) {
                 return Center(
                   child: Text('Booking failed. Please try again.'),
                 );
@@ -173,33 +215,69 @@ class _BookingScreenState extends State<BookingScreen> {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.person),
-                        Text("chọn kỹ thuật viên:")
+                        Icon(
+                          Icons.person,
+                          color: color.colorPrimary,
+                        ),
+                        Text("Chọn kỹ thuật viên:"),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: SizedBox(
+                      width: 250,
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: PromptedChoice<Employee>.single(
+                          title: 'Nhân viên',
+                          value: singleSelectedEmployee,
+                          onChanged: setSingleSelectedEmployee,
+                          itemCount: employee.length,
+                          itemBuilder: (state, i) {
+                            return RadioListTile(
+                              value: employee[i],
+                              groupValue: state.single,
+                              onChanged: (value) {
+                                state.select(employee[i]);
+                                print(employee[i].name);
+                              },
+                              title: ChoiceText(
+                                employee[i].name,
+                                highlight: state.search?.value,
+                              ),
+                            );
+                          },
+                          promptDelegate: ChoicePrompt.delegateBottomSheet(),
+                          anchorBuilder: ChoiceAnchor.create(inline: true),
+                        ),
+                      ),
                     ),
                   ),
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.calendar_today),
+                        Icon(
+                          Icons.calendar_today,
+                          color: color.colorPrimary,
+                        ),
                         Text("Thời gian đặt lịch:")
                       ],
                     ),
                   ),
-                  Choice<String>.inline(
+                  Choice<DateTime>.inline(
                     clearable: true,
                     value: ChoiceSingle.value(selectedDay),
                     onChanged: ChoiceSingle.onChanged(setSelectedDayValue),
                     itemCount: time.length,
                     itemBuilder: (state, i) {
-                      String formattedDate = formatDateTime(time[i]);
                       return ChoiceChip(
                         showCheckmark: false,
                         backgroundColor: color.colorGrey,
                         selectedColor: color.colorPrimary,
-                        selected: state.selected(formattedDate),
-                        onSelected: state.onSelected(formattedDate),
-                        label: Text(formattedDate),
+                        selected: state.selected(time[i]),
+                        onSelected: state.onSelected(time[i]),
+                        label: Text("${formatDateTime(time[i])}"),
                       );
                     },
                     listBuilder: ChoiceList.createScrollable(
@@ -213,7 +291,10 @@ class _BookingScreenState extends State<BookingScreen> {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time),
+                        Icon(
+                          Icons.access_time,
+                          color: color.colorPrimary,
+                        ),
                         Text("Chọn khung giờ:")
                       ],
                     ),
@@ -245,15 +326,52 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                   Container(
                     child: Row(
-                      children: [Icon(Icons.back_hand), Text("Chọn dịch vụ:")],
+                      children: [
+                        Icon(
+                          Icons.back_hand,
+                          color: color.colorPrimary,
+                        ),
+                        Text("Chọn dịch vụ:")
+                      ],
                     ),
                   ),
-                  Container(
-                    child: Row(
-                      children: [Icon(Icons.library_books), Text("Ghi chú:")],
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: SizedBox(
+                      width: 250,
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: PromptedChoice<Service>.single(
+                          title: 'Dịch vụ',
+                          value: singleSelectedService,
+                          onChanged: setSelectedSerrviceValue,
+                          itemCount: service.length,
+                          itemBuilder: (state, i) {
+                            return RadioListTile(
+                              value: service[i],
+                              groupValue: state.single,
+                              onChanged: (value) {
+                                state.select(service[i]);
+                              },
+                              title: ChoiceText(
+                                service[i].name,
+                                highlight: state.search?.value,
+                              ),
+                            );
+                          },
+                          promptDelegate: ChoicePrompt.delegateBottomSheet(),
+                          anchorBuilder: ChoiceAnchor.create(inline: true),
+                        ),
+                      ),
                     ),
                   ),
-                  ButtonWidget(text: "Đặt lịch", ontap: () {})
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ButtonWidget(text: "Đặt lịch", ontap: () {}),
+                  SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
               ListView(

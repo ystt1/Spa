@@ -9,6 +9,7 @@ import 'package:tbdd/blocs/newsBLoC/news_bloc.dart';
 import 'package:tbdd/blocs/newsBLoC/news_event.dart';
 import 'package:tbdd/repositories/BookingRepository.dart';
 import 'package:tbdd/repositories/BranchRepository.dart';
+import 'package:tbdd/repositories/EmployeeRepository.dart';
 import 'package:tbdd/repositories/NewsRepository.dart';
 import 'package:tbdd/repositories/ServiceRepository.dart';
 import 'package:tbdd/until/color.dart';
@@ -32,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
   ServiceRepository _serviceRepository = ServiceRepository();
   NewsRepository _newsRepository = NewsRepository();
   BookingRepository _bookingRepository = BookingRepository();
+  EmployeeRepository _employeeRepository = EmployeeRepository();
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -51,8 +53,8 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc()),
         BlocProvider<BookingBloc>(
-            create: (BuildContext context) =>
-                BookingBloc(_branchRepository, _bookingRepository)),
+            create: (BuildContext context) => BookingBloc(_branchRepository,
+                _bookingRepository, _employeeRepository, _serviceRepository)),
         BlocProvider<HomeBloc>(
             create: (BuildContext context) => HomeBloc(
                 _branchRepository, _serviceRepository, _newsRepository)),

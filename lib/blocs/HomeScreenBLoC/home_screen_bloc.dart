@@ -16,11 +16,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ServiceRepository _serviceRepository;
   final NewsRepository _newsRepository;
 
-  HomeBloc(this._branchRepository, this._serviceRepository, this._newsRepository) : super(HomeStateIninitial()) {
+  HomeBloc(
+      this._branchRepository, this._serviceRepository, this._newsRepository)
+      : super(HomeStateIninitial()) {
     on<HomeEventLoad>((event, emit) async {
       branches = await _branchRepository.getBranches();
-      services=await _serviceRepository.getHighlighBranches();
-      news=await _newsRepository.getHighlighNews();
+      services = await _serviceRepository.getHighlighBranches();
+      news = await _newsRepository.getHighlighNews();
       emit(HomeLoadingState(branches, services, news));
     });
   }

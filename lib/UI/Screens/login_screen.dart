@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
               print("Login fail");
             } else if (state == AuthenticationState.AuthSuccess) {
               context.goNamed('home');
-              print("Login success");
+              print("Đăng ký thành công");
             }
           },
           child: Center(
@@ -63,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: TextFieldWidget(
-
                       hinttext: "Email",
                       type: false,
                       controller: _emailController,

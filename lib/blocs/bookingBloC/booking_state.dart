@@ -18,9 +18,21 @@ final class BookingFailure extends BookingState {
   BookingFailure({required this.message});
 }
 
-final class DataTimeSuccess extends BookingState{
+final class GetDataTimeSuccess extends BookingState {
   final List<DateTime> times;
 
-  DataTimeSuccess({required this.times});
-  
+  GetDataTimeSuccess({required this.times});
+}
+
+final class GetEmployeeSuccess extends BookingState {
+  final List<Employee> em;
+
+  GetEmployeeSuccess({required this.em});
+}
+
+final class GetServiceSuccess extends BookingState {
+  final List<Service> sv;
+
+  GetServiceSuccess({required this.sv});
+
 }

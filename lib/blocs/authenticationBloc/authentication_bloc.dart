@@ -32,6 +32,7 @@ class AuthenticationBloc
           username: event.name,
           email: event.email,
           password: event.password,
+          number: event.number
         );
         if (res == "success") {
           emit(AuthenticationState.AuthSuccess);

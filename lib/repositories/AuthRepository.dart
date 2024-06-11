@@ -7,12 +7,16 @@ class AuthRepository {
 
   Future<String> signUpUser({
     required String email,
+    required String number,
     required String username,
     required String password,
   }) async {
     String res = "Some error Occurred";
     try {
-      if (email.isNotEmpty || password.isNotEmpty || username.isNotEmpty) {
+      if (email.isNotEmpty ||
+          password.isNotEmpty ||
+          username.isNotEmpty ||
+          number.isNotEmpty) {
         // register user in auth with email and password
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
           email: email,
@@ -20,6 +24,7 @@ class AuthRepository {
         );
         // add user to your  firestore database
         await _firestore.collection('users').doc(cred.user!.uid).set({
+          'number': number,
           'username': username,
           'uid': cred.user!.uid,
           'email': email,
